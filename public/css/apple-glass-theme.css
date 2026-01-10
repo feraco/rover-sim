@@ -1,0 +1,1108 @@
+/* ============================================
+   APPLE GLASS DESIGN SYSTEM
+   Sophisticated dual-theme with glassmorphism
+   ============================================ */
+
+/* Theme Variables */
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #000000;
+  --bg-glass: rgba(20, 20, 20, 0.5);
+  --bg-glass-hover: rgba(30, 30, 30, 0.6);
+  --text-primary: #ffffff;
+  --text-secondary: #ebebf5;
+  --text-tertiary: #aeaeb2;
+  --accent-blue: #0a84ff;
+  --accent-blue-hover: #409cff;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(10, 132, 255, 0.5);
+  --shadow-glass: rgba(0, 0, 0, 0.3);
+  --blur-amount: 24px;
+  --blur-light: 20px;
+  --spring-curve: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --spring-duration: 0.3s;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg-primary: #f5f5f7;
+  --bg-glass: rgba(245, 245, 245, 0.85);
+  --bg-glass-hover: rgba(255, 255, 255, 0.9);
+  --text-primary: #1d1d1f;
+  --text-secondary: #424245;
+  --text-tertiary: #86868b;
+  --border-subtle: rgba(0, 0, 0, 0.15);
+  --shadow-glass: rgba(0, 0, 0, 0.1);
+}
+
+/* Base Overrides */
+html, body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  transition: background var(--spring-duration) var(--spring-curve), color var(--spring-duration) var(--spring-curve);
+}
+
+/* Header - Glass Navigation */
+header {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  color: var(--text-primary) !important;
+  height: 3em !important;
+  padding: 0 1.5em !important;
+  position: relative;
+  z-index: 1000;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+header .gearsIcon {
+  height: 1.8em !important;
+  margin-right: 0.8em !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  filter: drop-shadow(0 2px 8px rgba(10, 132, 255, 0.3));
+  transition: transform var(--spring-duration) var(--spring-curve);
+  z-index: 1;
+}
+
+header .gearsIcon:hover {
+  transform: scale(1.05);
+}
+
+header #projectName,
+header #robotName {
+  background: transparent !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  padding: 0.5em 0.8em !important;
+  color: var(--text-primary) !important;
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(var(--blur-light));
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+header #projectName:hover,
+header #robotName:hover {
+  border-color: var(--accent-blue) !important;
+  background: rgba(10, 132, 255, 0.05) !important;
+}
+
+header #projectName:focus,
+header #robotName:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px var(--border-focus) !important;
+}
+
+header #projectName::placeholder {
+  color: var(--text-tertiary) !important;
+}
+
+header .language {
+  padding: 0.5em 1em !important;
+  border-radius: 8px !important;
+  border: 1px solid transparent !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  background: transparent !important;
+}
+
+header .language:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Main Content Area with Glass Panels */
+main {
+  background: transparent !important;
+  gap: 0.8em;
+  padding: 0.8em;
+}
+
+main > section {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  position: relative;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+main > section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Navigation Tabs - Glass Style */
+nav {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  margin-top: 0 !important;
+}
+
+nav ul.panelTabs li {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px 8px 0 0 !important;
+  color: var(--text-secondary) !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+nav ul.panelTabs li:hover {
+  background: var(--bg-glass-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+nav ul.panelTabs li.active {
+  background: var(--bg-glass-hover) !important;
+  color: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 -2px 8px rgba(10, 132, 255, 0.2) !important;
+}
+
+/* Buttons - iOS Glass Style */
+button,
+.button {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  color: var(--text-primary) !important;
+  padding: 0.6em 1.2em !important;
+  font-size: 0.9em !important;
+  font-weight: 600 !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before,
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+  opacity: 0;
+  transition: opacity var(--spring-duration) var(--spring-curve);
+  pointer-events: none;
+}
+
+button:hover,
+.button:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-glass) !important;
+}
+
+button:hover::before,
+.button:hover::before {
+  opacity: 1;
+}
+
+button:active,
+.button:active {
+  transform: translateY(0);
+}
+
+button.active {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4) !important;
+}
+
+/* Run/Stop Button */
+.runSim {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3) !important;
+}
+
+.runSim:hover {
+  background: var(--accent-blue-hover) !important;
+  border-color: var(--accent-blue-hover) !important;
+  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4) !important;
+}
+
+/* Code Type Selector (Arduino/Python) */
+.codeTypeSelector {
+  display: inline-flex;
+  gap: 0.5em;
+  margin-right: 1em;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  padding: 0.3em !important;
+}
+
+.codeTypeSelector button {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--text-secondary) !important;
+  padding: 0.5em 1em !important;
+  border-radius: 8px !important;
+  font-size: 0.85em !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.codeTypeSelector button::before {
+  display: none !important;
+}
+
+.codeTypeSelector button:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+  color: var(--text-primary) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.codeTypeSelector button.active {
+  background: var(--accent-blue) !important;
+  color: white !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3) !important;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.6em 0.8em !important;
+  font-size: 0.9em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--accent-blue) !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px var(--border-focus) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-tertiary) !important;
+}
+
+/* Panels */
+.blocklyPanel,
+.pythonPanel,
+.simPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Blockly Workspace */
+.blocklyToolboxDiv {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.blocklyFlyout {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+/* ACE Editor - Dark glass background */
+.ace_editor {
+  background: var(--bg-glass) !important;
+  color: var(--text-primary) !important;
+}
+
+.ace_gutter {
+  background: var(--bg-glass) !important;
+  color: var(--text-tertiary) !important;
+}
+
+/* Console */
+.console {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-top: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+.console .content {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Scrollbars - Minimal Apple Style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+  transition: background var(--spring-duration) var(--spring-curve);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Selection */
+::selection {
+  background: rgba(10, 132, 255, 0.3);
+  color: var(--text-primary);
+}
+
+/* Simulator Canvas */
+canvas {
+  border-radius: 12px !important;
+}
+
+/* World selector and other dropdowns */
+.world,
+.camera,
+.sensors {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Menu items */
+.menuItem {
+  color: var(--text-secondary) !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.menuItem:hover {
+  color: var(--accent-blue) !important;
+}
+
+/* Modals and dialogs */
+.acknowledgeDialog,
+.confirmDialog {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--spring-duration) var(--spring-curve);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  margin-left: 1em;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--blur-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--spring-duration) var(--spring-curve);
+  color: var(--text-primary);
+  font-size: 1.2em;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-blue);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Enhanced Simulator Panel Styling */
+.simPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.simPanel canvas {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px var(--shadow-glass) !important;
+}
+
+/* Blockly Panel Glass Effect */
+.blocklyPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.blocklyWorkspace {
+  background: transparent !important;
+}
+
+/* Python/Code Panel */
+.pythonPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+/* Simulator Controls */
+.simControls,
+.worldControls {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  padding: 0.8em !important;
+  margin: 0.5em !important;
+}
+
+/* World Selector */
+.world,
+.worldSelector {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+}
+
+/* Camera and Sensor Buttons */
+.camera,
+.sensors,
+.ruler,
+.reset {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.camera:hover,
+.sensors:hover,
+.ruler:hover,
+.reset:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+}
+
+/* Menu Dropdown Glass */
+.menuDropDown {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0 !important;
+}
+
+.menuDropDown > div {
+  color: var(--text-primary) !important;
+  padding: 0.6em 1.2em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.menuDropDown > div:hover {
+  background: rgba(10, 132, 255, 0.15) !important;
+  color: var(--accent-blue) !important;
+}
+
+.menuDropDown > div.line {
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+/* Blockly Toolbox */
+.blocklyToolboxDiv {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.blocklyTreeRow {
+  color: var(--text-primary) !important;
+}
+
+.blocklyTreeLabel {
+  color: var(--text-secondary) !important;
+}
+
+.blocklyTreeRow:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+}
+
+.blocklyTreeRow.blocklyTreeSelected {
+  background: rgba(10, 132, 255, 0.2) !important;
+}
+
+/* ACE Editor Enhanced */
+.ace_editor {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.ace_gutter {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.ace_gutter-active-line {
+  background: rgba(10, 132, 255, 0.1) !important;
+}
+
+.ace_active-line {
+  background: rgba(10, 132, 255, 0.05) !important;
+}
+
+/* Console Glass */
+.console {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-top: 1px solid var(--border-subtle) !important;
+}
+
+.console .chevron {
+  color: var(--text-secondary) !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.console .chevron:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+  color: var(--accent-blue) !important;
+}
+
+.console .content {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace !important;
+}
+
+/* Sensor Readings Panel */
+.sensorReadings {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  color: var(--text-primary) !important;
+  padding: 1em !important;
+}
+
+/* Modal Dialogs */
+.modal,
+.acknowledgeDialog,
+.confirmDialog,
+.acknowledgeOverlay,
+.confirmOverlay {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  color: var(--text-primary) !important;
+}
+
+.acknowledgeOverlay,
+.confirmOverlay {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Icon Colors */
+[class^="icon-"],
+[class*=" icon-"] {
+  color: var(--text-secondary) !important;
+  transition: color var(--spring-duration) var(--spring-curve);
+}
+
+button:hover [class^="icon-"],
+button:hover [class*=" icon-"],
+.button:hover [class^="icon-"],
+.button:hover [class*=" icon-"] {
+  color: var(--accent-blue) !important;
+}
+
+/* Enhanced Blockly Workspace for Apple Glass */
+.blocklyWorkspace {
+  background: transparent !important;
+}
+
+.blocklyMainBackground {
+  stroke: none !important;
+  fill: transparent !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: rgba(0, 0, 0, 0.5) !important;
+  fill-opacity: 0.95 !important;
+}
+
+.blocklyScrollbarBackground {
+  fill: rgba(10, 132, 255, 0.2) !important;
+  fill-opacity: 0.3 !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: rgba(10, 132, 255, 0.6) !important;
+}
+
+/* Blockly zoom controls modern style */
+.blocklyZoom {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.blocklyZoom > image {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.blocklyZoom > image:hover {
+  opacity: 1;
+}
+
+/* Blockly blocks with subtle glass effect */
+.blocklyPath {
+  stroke-width: 1px !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.blocklyDraggable:not(.blocklyDisabled) .blocklyPath {
+  transition: filter 0.15s ease;
+}
+
+.blocklyDraggable:not(.blocklyDisabled):hover .blocklyPath {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Selected block highlight */
+.blocklySelected > .blocklyPath {
+  stroke: #0a84ff !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 0 8px rgba(10, 132, 255, 0.5));
+}
+
+/* Blockly text with better readability */
+.blocklyText {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 500 !important;
+  fill: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.blocklyNonEditableText > text,
+.blocklyEditableText > text {
+  fill: #ffffff !important;
+}
+
+/* Blockly dropdown with glass effect */
+.blocklyDropDownDiv {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.blocklyMenuItem {
+  color: #ffffff !important;
+  padding: 8px 16px !important;
+  transition: background 0.2s ease;
+}
+
+.blocklyMenuItem:hover {
+  background: rgba(10, 132, 255, 0.2) !important;
+}
+
+.blocklyMenuItemHighlight {
+  background: rgba(10, 132, 255, 0.3) !important;
+}
+
+/* Blockly context menu */
+.blocklyContextMenu {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Blockly widget div (for inputs) */
+.blocklyWidgetDiv {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  color: #ffffff !important;
+}
+
+.blocklyWidgetDiv input,
+.blocklyWidgetDiv select {
+  background: rgba(50, 50, 50, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+}
+
+/* Trash can icon (if enabled) */
+.blocklyTrash {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.blocklyTrash:hover {
+  opacity: 1;
+}
+
+/* Light theme overrides for Blockly */
+[data-theme="light"] .blocklyToolboxDiv,
+[data-theme="light"] .blocklyFlyoutBackground {
+  background: rgba(255, 255, 255, 0.3) !important;
+  fill: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="light"] .blocklyDropDownDiv,
+[data-theme="light"] .blocklyContextMenu,
+[data-theme="light"] .blocklyWidgetDiv {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .blocklyMenuItem {
+  color: #1d1d1f !important;
+}
+
+[data-theme="light"] .blocklyWidgetDiv input,
+[data-theme="light"] .blocklyWidgetDiv select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  color: #1d1d1f !important;
+}
+
+/* ROVER Sim App Title (replacing logo) */
+.appTitle {
+  font-size: 1.5em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0a84ff 0%, #30d158 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  margin-right: auto;
+  padding: 0.2em 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme="light"] .appTitle {
+  background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hide old gearsIcon if it still exists */
+.gearsIcon {
+  display: none !important;
+}
+
+/* URL Generator Page Styling */
+.urlGeneratorMain {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 2em;
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--blur-amount));
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  color: var(--text-primary);
+}
+
+.urlGeneratorMain div {
+  margin: 1.2em 0;
+}
+
+.urlGeneratorMain label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: var(--text-primary);
+}
+
+.urlGeneratorMain input[type=text] {
+  width: 100%;
+  padding: 0.8em;
+  background: rgba(50, 50, 50, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.95em;
+  transition: all 0.2s var(--spring-curve);
+}
+
+.urlGeneratorMain input[type=text]:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(50, 50, 50, 0.7);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.urlGeneratorMain button {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 0.8em 2em;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--spring-curve);
+}
+
+.urlGeneratorMain button:hover {
+  background: #0066cc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+}
+
+.urlGeneratorMain #output {
+  background: rgba(30, 30, 30, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+}
+
+.urlGeneratorMain #errors {
+  color: #ff453a;
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+
+.urlGeneratorMain #results {
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+.urlGeneratorMain p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 1em 0;
+}
+
+.urlGeneratorMain a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.urlGeneratorMain a:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.urlGeneratorMain h3 {
+  color: var(--text-primary);
+  margin-top: 1.5em;
+}
+
+/* Light theme overrides for URL Generator */
+[data-theme="light"] .urlGeneratorMain input[type=text] {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .urlGeneratorMain input[type=text]:focus {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .urlGeneratorMain #output {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced Plotter with Apple Glass Theme */
+#plotter {
+  width: 450px !important;
+  height: 350px !important;
+  bottom: 5em !important;
+  right: 1em !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  padding: 1em !important;
+}
+
+#plotterCanvas {
+  width: 100% !important;
+  height: calc(100% - 2em) !important;
+  border-radius: 8px !important;
+  background: rgba(20, 20, 20, 0.5) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+#plotter .close {
+  position: absolute !important;
+  top: 0.5em !important;
+  right: 0.5em !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 2em !important;
+  height: 2em !important;
+  background: rgba(255, 69, 58, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  font-size: 1em !important;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s var(--spring-curve) !important;
+}
+
+#plotter .close:hover {
+  background: rgba(255, 69, 58, 1) !important;
+  transform: scale(1.1) !important;
+}
+
+#plotter .position {
+  position: absolute !important;
+  top: 0.5em !important;
+  left: 0.5em !important;
+  bottom: auto !important;
+  background: rgba(10, 132, 255, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  color: white !important;
+  padding: 0.5em 1em !important;
+  font-family: 'SF Mono', Monaco, monospace !important;
+  font-size: 0.85em !important;
+  font-weight: 600 !important;
+}
+
+/* Plotter Title */
+#plotter::before {
+  content: 'Data Plotter';
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.5em;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* Light theme overrides */
+[data-theme="light"] #plotterCanvas {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="light"] #plotter .position {
+  background: rgba(10, 132, 255, 0.9) !important;
+}
+
+/* Plotter Button Styling */
+.plotter {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+.plotter:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+}
+
+.plotter .icon-plotter {
+  font-size: 1.2em !important;
+}
