@@ -1,7 +1,0 @@
-# Redirect all requests to public directory
-RewriteEngine On
-RewriteBase /
-
-# Don't redirect if already in public
-RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ public/$1 [L,QSA]
