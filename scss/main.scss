@@ -1,3 +1,10 @@
+@use '_blocklyPanel.scss';
+@use '_simPanel.scss';
+@use '_font.scss';
+@use '_arena.scss';
+@use '_pythonPanel.scss';
+@use '_configuratorAndBuilder.scss';
+
 html, body {
   height: 100%;
   width: 100%;
@@ -507,10 +514,3 @@ ul.menuDropDownRightAlign {
     transform: translateY(0) scale(1);
   }
 }
-
-@import '_blocklyPanel.scss';
-@import '_simPanel.scss';
-@import '_font.scss';
-@import '_arena.scss';
-@import '_pythonPanel.scss';
-@import '_configuratorAndBuilder.scss';
