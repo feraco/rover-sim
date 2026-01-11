@@ -57,7 +57,7 @@ var main = new function() {
     }
     setTimeout(loadArduinoCode, 500);
 
-    self.showWhatsNew();
+    // self.showWhatsNew();
   };
 
   // Update text already in html
