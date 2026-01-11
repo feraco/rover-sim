@@ -193,6 +193,7 @@ function Robot() {
 
       self.componentIndex = 0;
       self.loadComponents(self.options.components, self.components, self.body);
+      self.assignWheelActuatorGroups();
 
       // Add Physics
       body.physicsImpostor = new BABYLON.PhysicsImpostor(
@@ -542,6 +543,23 @@ function Robot() {
     }
   };
 
+  // Get components of a given type
+  this.getComponentsByType = function(type) {
+    let found = [];
+    function search(list) {
+      list.forEach(function(component) {
+        if (component.type == type) {
+          found.push(component);
+        }
+        if (component.components) {
+          search(component.components);
+        }
+      });
+    }
+    search(self.components);
+    return found;
+  };
+
   // Get component based on componentIndex
   this.getComponentByIndex = function(index) {
     return self._getComponentByIndex(index, self.components);
@@ -558,6 +576,58 @@ function Robot() {
         }
       }
     }
+  };
+
+  // Map wheel actuators to left/right groups when auto wheels are disabled
+  this.assignWheelActuatorGroups = function() {
+    if (self.leftWheel || self.rightWheel) {
+      return;
+    }
+
+    let wheels = self.getComponentsByType('WheelActuator');
+    if (wheels.length === 0) {
+      return;
+    }
+
+    function makeGroup(list) {
+      if (list.length === 0) {
+        return null;
+      }
+
+      let group = {
+        type: 'WheelActuator',
+        port: list[0].port,
+        members: list,
+        runForever: function() { list.forEach((w) => w.runForever()); },
+        runTimed: function() { list.forEach((w) => w.runTimed()); },
+        runToPosition: function() { list.forEach((w) => w.runToPosition()); },
+        stop: function() { list.forEach((w) => w.stop()); },
+        reset: function() { list.forEach((w) => w.reset()); },
+        render: function() {}
+      };
+
+      ['speed_sp', 'time_sp', 'time_target', 'stop_action', 'position_target', 'mode'].forEach(function(prop) {
+        Object.defineProperty(group, prop, {
+          get: function() { return list[0][prop]; },
+          set: function(val) { list.forEach((w) => { w[prop] = val; }); },
+          enumerable: true
+        });
+      });
+
+      Object.defineProperty(group, 'position', {
+        get: function() { return list[0].position; },
+        set: function(val) { list.forEach((w) => { w.position = val; }); },
+        enumerable: true
+      });
+
+      return group;
+    }
+
+    let leftWheels = wheels.filter((w) => w.bodyPosition.x <= 0);
+    let rightWheels = wheels.filter((w) => w.bodyPosition.x > 0);
+
+    self.leftWheel = makeGroup(leftWheels);
+    self.rightWheel = makeGroup(rightWheels);
   };
 
   // Reset robot

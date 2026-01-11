@@ -25,13 +25,13 @@
   <script src="js/msg.js"></script>
   <script src="js/common/widgets.js"></script>
 
-  <title>ROVER Sim Robot Configurator</title>
+  <title>ATLAS Sim Robot Configurator</title>
   <script src="js/theme-toggle.js"></script>
 </head>
 
 <body>
   <header>
-    <div class="appTitle">ROVER Sim Robot Configurator</div>
+    <div class="appTitle">ATLAS Sim Robot Configurator</div>
     <input type="text" id="robotName" placeholder="Robot Name">
     <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Theme">◐</button>
   </header>
@@ -46,6 +46,7 @@
         <div class="menuItem robotMenu">Robot</div>
         <div class="menuItem snapMenu">Snap</div>
       </div>
+      <button class="helperToggle" id="helperToggle" type="button" aria-pressed="false">Hide tips</button>
     </nav>
     <div class="panels">
       <div class="panel active" aria-labelledby="navRobot">
@@ -81,6 +82,11 @@
             </table>
           </div>
         </div>
+        <div class="helperCard block-help" data-tip-id="configurator-help">
+          <button class="helperClose" type="button" aria-label="Close tip">×</button>
+          <div class="helperTitle">Robot Configurator tips</div>
+          <p>Add components to the list, then select one to edit its position in the scene. Use Delete to remove, Undo to revert, and Snap to align parts cleanly. The ruler helps you measure sensor offsets and wheel spacing.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -103,6 +109,69 @@
   <script src="js/builtInImages.js?v=e885f8db"></script>
   <script src="js/GenConfig.js?v=3007e163"></script>
   <script src="js/configurator.js?v=6a54037c"></script>
+
+  <script>
+    (function(){
+      const toggle = document.getElementById('helperToggle');
+      const cards = Array.from(document.querySelectorAll('.helperCard'));
+      if (!toggle || cards.length === 0) {
+        return;
+      }
+
+      const KEY = 'atlasTipsHidden';
+      const KEY_CLOSED = 'atlasTipsClosed';
+
+      function loadClosed() {
+        try {
+          const val = localStorage.getItem(KEY_CLOSED);
+          if (!val) return new Set();
+          return new Set(JSON.parse(val));
+        } catch (e) {
+          return new Set();
+        }
+      }
+
+      let closedSet = loadClosed();
+
+      function saveClosed() {
+        localStorage.setItem(KEY_CLOSED, JSON.stringify(Array.from(closedSet)));
+      }
+
+      function apply(hidden) {
+        cards.forEach((c) => {
+          const id = c.dataset.tipId || c.className;
+          const isClosed = closedSet.has(id);
+          c.classList.toggle('hide', hidden || isClosed);
+        });
+        toggle.textContent = hidden ? 'Show tips' : 'Hide tips';
+        toggle.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      }
+
+      const startHidden = localStorage.getItem(KEY) === 'true';
+      apply(startHidden);
+
+      toggle.addEventListener('click', () => {
+        const next = !cards.some((c) => !c.classList.contains('hide'));
+        if (!next) {
+          closedSet.clear();
+          saveClosed();
+        }
+        apply(next);
+        localStorage.setItem(KEY, next ? 'true' : 'false');
+      });
+
+      cards.forEach((c) => {
+        const btn = c.querySelector('.helperClose');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const id = c.dataset.tipId || c.className;
+          closedSet.add(id);
+          saveClosed();
+          c.classList.add('hide');
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>

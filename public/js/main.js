@@ -426,6 +426,7 @@ var main = new function() {
         {html: 'Zoom In', line: false, callback: pythonPanel.zoomIn},
         {html: 'Zoom Out', line: false, callback: pythonPanel.zoomOut},
         {html: 'Reset Zoom', line: false, callback: pythonPanel.zoomReset},
+        {html: 'Upload to Arduino (USB beta)', line: true, callback: function() { webserialUploader.openDialog(); }},
       ];
 
       menuDropDown(self.$arduinoMenu, menuItems, {className: 'arduinoMenuDropDown'});

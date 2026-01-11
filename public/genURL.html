@@ -11,6 +11,7 @@
   <link rel="icon" href="favicon-192.png" sizes="192x192">
 
   <title>ROVER Sim URL Generator</title>
+    <title>ATLAS Sim URL Generator</title>
 
   <link rel="stylesheet" href="css/main.css?v=9584d2b6">
   <link rel="stylesheet" href="css/apple-glass-theme.css">
@@ -39,6 +40,7 @@
 <body>
   <header>
     <div class="appTitle">ROVER Sim URL Generator</div>
+    <div class="appTitle">ATLAS Sim URL Generator</div>
     <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Theme">◐</button>
   </header>
 
@@ -84,8 +86,9 @@
       </p>
       <p>
         If you are hosting ROVER Sim on your own server, change the first part of the generated URL accordingly.
-        If the json files are on the same site as your hosted ROVER Sim, you can safely ignore the CORS error.
-        You can also ignore the https error if you are hosting ROVER Sim on a http site.
+          If you are hosting ATLAS Sim on your own server, change the first part of the generated URL accordingly.
+          If the json files are on the same site as your hosted ATLAS Sim, you can safely ignore the CORS error.
+          You can also ignore the https error if you are hosting ATLAS Sim on a http site.
       </p>
     </div>
   </main>
@@ -162,13 +165,13 @@
 
       // Check if is http
       if (worldURL && ! isHTTPS(worldURL)) {
-        errorOut('World URL must be served over https. Gears uses https and browser security will not allow a mix of http and https.');
+          errorOut('World URL must be served over https. ATLAS uses https and browser security will not allow a mix of http and https.');
       }
       if (robotURL && ! isHTTPS(robotURL)) {
-        errorOut('Robot URL must be served over https. Gears uses https and browser security will not allow a mix of http and https.');
+          errorOut('Robot URL must be served over https. ATLAS uses https and browser security will not allow a mix of http and https.');
       }
       if (blocksURL && ! isHTTPS(blocksURL)) {
-        errorOut('Blocks Filter URL must be served over https. Gears uses https and browser security will not allow a mix of http and https.');
+          errorOut('Blocks Filter URL must be served over https. ATLAS uses https and browser security will not allow a mix of http and https.');
       }
 
       // Check CORS

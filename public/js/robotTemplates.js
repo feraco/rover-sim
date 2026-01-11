@@ -221,19 +221,19 @@ i18n.append({
     en:
       '<p>This robot is similar to the double sensor line follower, but with the addition of a paintball launcher mounted on an motorized arm. ' +
       'The ultrasonic distance sensor is also replaced with a long range (5m) laser range sensor.</p>'  +
-      '<p>Read the <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball Launcher documentations</a> to learn how to launch a paintball.</p>',
+      '<p>Read the <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball Launcher documentations</a> to learn how to launch a paintball with ATLAS Bots.</p>',
     fr:
       '<p>Ce robot est identique au suiveur de ligne à deux capteurs, avec en plus un bras motorisé équipé d\'un lanceur de paintball.' +
       'Le télémètre à ultrasons est remplacé par un télémètre laser de plus grande portée (5m).</p>'  +
-      '<p>Lire la <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">documentation du lanceur de paintball</a> pour apprendre à l\'utiliser.</p>',
+      '<p>Lire la <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">documentation du lanceur de paintball</a> pour apprendre à l\'utiliser avec ATLAS Bots.</p>',
     de:
       '<p>Dieser Roboter ähnelt dem Doppelsensor Linienverfolger, aber mit einem extra Paintball-Launcher auf einem motorisiertem Arm. ' +
       'Der Ultraschallsensor wurde auch mit einem lange Reichweite (5m) Laserentfernungssensor ersetzt.</p>' +
-      '<p>Lese die <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball-Launcher-Dokumentationen</a> um zu lernen wie man ein Paintball schießt.</p>',
+      '<p>Lese die <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball-Launcher-Dokumentationen</a> um zu lernen wie man ein Paintball mit ATLAS Bots schießt.</p>',
     nl:
       '<p>Deze robot is vergelijkbaar met de dubbele sensor lijnvolger, maar met de toevoeging van een paintball kanon, gemonteerd op een gemotoriseerde arm. ' +
       'De ultrasonische afstandsensor is ook vervangen door een lange afstand (5m) laser afstandsensor.</p>'  +
-      '<p>Lees de <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball kanon documentatie</a> om te leren hoe een paintball te lanceren.</p>',
+      '<p>Lees de <a href="https://github.com/QuirkyCort/gears/wiki/Paintball-Launcher" target="_blank">Paintball kanon documentatie</a> om te leren hoe een paintball te lanceren met ATLAS Bots.</p>',
   },
   '#robot-mazeShort#': {
     en: 'Maze Runner',
@@ -348,6 +348,148 @@ i18n.append({
 
 
 var robotTemplates = [
+  {
+    name: 'singleFollowerCustom',
+    shortDescription: 'Single Sensor Line Follower (ATLAS default)',
+    longDescription: 'Custom single-sensor line follower with electromagnet and pen.',
+    longerDescription:
+      '<h3>#robot-dimensions#</h3>' +
+      '<ul>' +
+        '<li>#robot-wheelDiameter#: 8.3 cm</li>' +
+        '<li>#robot-wheelSpacing#: 19.2 cm</li>' +
+      '</ul>' +
+      '<h3>#robot-actuators#</h3>' +
+      '<ul>' +
+        '<li>#robot-port# A : #robot-leftWheel#</li>' +
+        '<li>#robot-port# B : #robot-rightWheel#</li>' +
+        '<li>#robot-port# C : #robot-electromagnet#</li>' +
+        '<li>#robot-port# D : #robot-wheel#</li>' +
+        '<li>#robot-port# E : #robot-wheel#</li>' +
+      '</ul>' +
+      '<h3>#robot-sensors#</h3>' +
+      '<ul>' +
+        '<li>#robot-port# 1 : #robot-color#</li>' +
+        '<li>#robot-port# 2 : #robot-ultrasonic#</li>' +
+        '<li>#robot-port# 3 : #robot-gyro#</li>' +
+        '<li>#robot-port# 4 : GPS</li>' +
+        '<li>#robot-port# 5 : #robot-pen#</li>' +
+      '</ul>',
+    thumbnail: '',
+
+    bodyHeight: 4,
+    bodyWidth: 14,
+    bodyLength: 16,
+
+    wheels: false,
+    wheelDiameter: 8.3,
+    wheelWidth: 3.6,
+    wheelToBodyOffset: 0.8,
+
+    bodyEdgeToWheelCenterY: 1.7,
+    bodyEdgeToWheelCenterZ: 4,
+
+    bodyMass: 1000,
+    wheelMass: 200,
+    casterMass: 0,
+    caster: false,
+
+    wheelFriction: 10,
+    bodyFriction: 0,
+    casterFriction: 0,
+
+    color: '#4b473fff',
+    imageType: 'top',
+    imageURL: '',
+
+    components: [
+      {
+        type: 'ColorSensor',
+        position: [0, -1, 9],
+        rotation: [Math.PI/2, 0, 0],
+        options: null
+      },
+      {
+        type: 'UltrasonicSensor',
+        position: [0, 2.5, 8],
+        rotation: [0, 0, 0],
+        options: null
+      },
+      {
+        type: 'GyroSensor',
+        position: [0, 2.5, 2.5],
+        options: null
+      },
+      {
+        type: 'GPSSensor',
+        position: [0, 2.5, 5],
+        options: null
+      },
+      {
+        type: 'MagnetActuator',
+        position: [0, -1, 3],
+        rotation: [0, 0, 0],
+        options: null
+      },
+      {
+        type: 'Pen',
+        position: [0, 0, 6],
+        rotation: [0, 0, 0],
+        options: null
+      },
+      {
+        type: 'WheelActuator',
+        position: [-8.150145970529948, 0, -7.646570611637376],
+        rotation: [0, 0, 0],
+        components: [],
+        options: {
+          diameter: 8.3,
+          width: 3.6,
+          mass: 200,
+          friction: 10,
+          restitution: 0.1
+        }
+      },
+      {
+        type: 'WheelActuator',
+        position: [8.372755337326192, 0, -6.5358493119261265],
+        rotation: [0, 0, 0],
+        components: [],
+        options: {
+          diameter: 8.3,
+          width: 3.6,
+          mass: 200,
+          friction: 10,
+          restitution: 0.1
+        }
+      },
+      {
+        type: 'WheelActuator',
+        position: [-8.150145970529948, 0, 7.646570611637376],
+        rotation: [0, 0, 0],
+        components: [],
+        options: {
+          diameter: 8.3,
+          width: 3.6,
+          mass: 200,
+          friction: 10,
+          restitution: 0.1
+        }
+      },
+      {
+        type: 'WheelActuator',
+        position: [8.372755337326192, 0, 6.5358493119261265],
+        rotation: [0, 0, 0],
+        components: [],
+        options: {
+          diameter: 8.3,
+          width: 3.6,
+          mass: 200,
+          friction: 10,
+          restitution: 0.1
+        }
+      }
+    ]
+  },
   {
     name: 'singleFollower',
     shortDescription: '#robot-singleFollowerShort#',

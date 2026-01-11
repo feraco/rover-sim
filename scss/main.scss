@@ -129,6 +129,34 @@ nav {
 
     .panelControls {
       display: none;
+
+      .codeTypeSelector {
+        display: inline-flex;
+        gap: 0.5em;
+        margin-right: 1em;
+
+        button {
+          background: #E4F0FE;
+          border: 1px solid #4994FB;
+          color: #4994FB;
+          padding: 0.3em 0.8em;
+          border-radius: 0.3em;
+          cursor: pointer;
+          font-size: 0.9em;
+          font-weight: 500;
+          transition: all 0.2s;
+        }
+
+        button:hover {
+          background: #D0E8FF;
+        }
+
+        button.active {
+          background: #4994FB;
+          color: white;
+          font-weight: bold;
+        }
+      }
     }
 
     .panelControls.active {
@@ -215,33 +243,33 @@ nav {
 }
 
 ul.menuDropDown {
-  background: #E4F0FE;
-  border: solid 1px #bbbbbb;
+  background: rgba(12, 12, 16, 0.78);
+  border: solid 1px rgba(255, 255, 255, 0.18);
+  color: #f5f5f5;
   position: absolute;
-  // top: 71px;
-  // left: 272px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
-  border-radius: 0 0 0.5em 0.5em;
+  border-radius: 0.6em;
   overflow: hidden;
-  box-shadow: 0px 10px 6px 0px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
 
   li {
     display: block;
-    color: gray;
-    padding: 0.5em;
+    color: inherit;
+    padding: 0.6em 0.9em;
   }
   li:hover {
-    background: white;
+    background: rgba(255, 255, 255, 0.12);
   }
   li.underline {
-    border-bottom: solid 1px #bbbbbb;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.15);
   }
   .tick {
-    color: green;
+    color: #9cf29c;
   }
 }
 

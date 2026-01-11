@@ -159,6 +159,9 @@ var simPanel = new function() {
       } else if (steering < -1) {
         steering = -1;
       }
+      if (Math.abs(steering) < 0.08) {
+        steering = 0; // deadzone to avoid tiny drift when moving straight
+      }
       if (speed > 1) {
         speed = 1;
       } else if (speed < -1) {
@@ -1243,24 +1246,43 @@ var simPanel = new function() {
           '    var car = arduino_sim_api.initCar();\n' +
           '    var plotter = new Plotter(0, 0, 60, 300);\n' +
           '    plotter.drawGrid(20);\n' +
-          '    plotter.drawLegend([{label:"Distance (cm)", color:"#0a84ff"},{label:"Battery (%)", color:"#ff6b35"},{label:"Line Left/Right", color:"#7bed8d"}]);\n' +
+          '    plotter.drawAxes("Time (s)", "Sensor Value");\n' +
+          '    plotter.drawLegend([{label:"Distance (cm)", color:"#0a84ff"},{label:"Battery (%)", color:"#ff6b35"},{label:"Line L/R", color:"#7bed8d"}]);\n' +
           '    plotter.setPointSize(2);\n' +
           '    var plotStart = performance.now();\n' +
           '    window._arduinoPlotter = plotter;\n' +
+          '    window._arduinoPlotLast = {dist:null, batt:null, lineL:null, lineR:null};\n' +
           '    window._arduinoPlotTick = function() {\n' +
           '      var t = (performance.now() - plotStart) / 1000;\n' +
           '      if (t > plotter.maxX) {\n' +
           '        plotter.clear();\n' +
           '        plotter.drawGrid(10);\n' +
+          '        plotter.drawAxes("Time (s)", "Sensor Value");\n' +
+          '        plotter.drawLegend([{label:"Distance (cm)", color:"#0a84ff"},{label:"Battery (%)", color:"#ff6b35"},{label:"Line L/R", color:"#7bed8d"}]);\n' +
           '        plotStart = performance.now();\n' +
           '        t = 0;\n' +
           '      }\n' +
-          '      function safePlot(val, color) {\n' +
-          '        if (Number.isFinite(val)) { plotter.setColor(color); plotter.drawPoint(t, val); }\n' +
+          '      function clamp(val) { return Math.min(Math.max(val, plotter.minY), plotter.maxY); }\n' +
+          '      function safePlot(val, color, key) {\n' +
+          '        if (!Number.isFinite(val)) { return; }\n' +
+          '        var prev = window._arduinoPlotLast[key];\n' +
+          '        var moved = 0;\n' +
+          '        if (robot && robot.body && robot.body.physicsImpostor) {\n' +
+          '          var vel = robot.body.physicsImpostor.getLinearVelocity();\n' +
+          '          moved = vel ? vel.length() : 0;\n' +
+          '        }\n' +
+          '        var changed = (prev === null) || Math.abs(prev - val) > 0.5;\n' +
+          '        if (moved < 0.05 && !changed) { return; }\n' +
+          '        window._arduinoPlotLast[key] = val;\n' +
+          '        plotter.setColor(color);\n' +
+          '        plotter.drawPoint(t, clamp(val));\n' +
           '      }\n' +
-          '      if (car && car.getDistance) { safePlot(Math.min(Math.max(car.getDistance(), 0), 300), "#0a84ff"); }\n' +
-          '      if (car && car.getBatteryLevel) { safePlot(Math.min(Math.max(car.getBatteryLevel(), 0), 300), "#ff6b35"); }\n' +
-          '      if (car && car.getLineSensorLeft && car.getLineSensorRight) { safePlot(Math.min(Math.max(car.getLineSensorLeft(), 0), 300), "#7bed8d"); safePlot(Math.min(Math.max(car.getLineSensorRight(), 0), 300), "#7bed8d"); }\n' +
+          '      if (car && car.getDistance) { safePlot(car.getDistance(), "#0a84ff", "dist"); }\n' +
+          '      if (car && car.getBatteryLevel) { safePlot(car.getBatteryLevel(), "#ff6b35", "batt"); }\n' +
+          '      if (car && car.getLineSensorLeft && car.getLineSensorRight) {\n' +
+          '        safePlot(car.getLineSensorLeft(), "#7bed8d", "lineL");\n' +
+          '        safePlot(car.getLineSensorRight(), "#7bed8d", "lineR");\n' +
+          '      }\n' +
           '    };\n' +
           jsCode +
           '    console.log("Arduino program completed");\n' +

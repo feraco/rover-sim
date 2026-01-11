@@ -33,13 +33,13 @@
   <script src="js/msg.js?v=e884f164"></script>
   <script src="js/common/widgets.js?v=8de59276"></script>
 
-  <title>ROVER Sim</title>
+  <title>ATLAS Sim</title>
   <script src="js/theme-toggle.js"></script>
 </head>
 
 <body>
   <header>
-    <div class="appTitle">ROVER Sim</div>
+    <div class="appTitle">ATLAS Sim</div>
     <input type="text" id="projectName" placeholder="Project Name">
     <div class="language"><span class="icon-globe"></span> &#x25BE;</div>
     <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Theme">◐</button>
@@ -48,13 +48,14 @@
   <main>
     <nav>
       <ul class="panelTabs">
-        <li id="navBlocks" class="active">Blocks</li>
+        <li id="navBlocks" class="active">Blocks <span class="info-chip" data-tip="Drag blocks from the toolbox to the canvas. Right-click any block to see what it does and to duplicate or delete it.">?</span></li>
         <li id="navPython" class="pythonMain">
           <span>
             Arduino
           </span>
+          <span class="info-chip" data-tip="Type Arduino-style code here. Use the + button to add helper files, and switch Python/Arduino with the toggle above.">?</span>
         </li>
-        <li id="navSim">Simulator</li>
+        <li id="navSim">Simulator <span class="info-chip" data-tip="Press play to run, use the globe to pick a world, and the joystick/camera buttons to drive and look around.">?</span></li>
       </ul>
       <div class="menuBar">
         <div class="menuItem fileMenu">File</div>
@@ -63,6 +64,7 @@
         <div class="menuItem worldsMenu">Worlds</div>
         <div class="menuItem helpMenu">Help</div>
       </div>
+      <button class="helperToggle" id="helperToggle" type="button" aria-pressed="false">Hide tips</button>
       <!-- <div class="news">
         News!
       </div> -->
@@ -86,6 +88,11 @@
         <div id="blocklyDiv" style="height: 100%; width: 100%;"></div>
         <div id="blocklyHiddenDiv" style="height: 100%; width: 100%; position: absolute; top: -10000px;"></div>
         <div id="blocklyPages"><span class="currentPage">Main</span></div>
+        <div class="helperCard block-help" data-tip-id="block-help">
+          <button class="helperClose" type="button" aria-label="Close tip">×</button>
+          <div class="helperTitle">Blocks 101</div>
+          <p>Start by dragging a block from the left toolbox. Snap blocks together to build a program. Right-click any block for options or built-in help. Use pages (bottom right) to organize big projects.</p>
+        </div>
       </div>
 
       <div class="panel" aria-labelledby="navPython">
@@ -94,6 +101,11 @@
           <div id="filesRow">
             <div id="filesList"></div>
             <div id="addNewFile"><span class="icon-plus"></span></div>
+          </div>
+          <div class="helperCard code-help" data-tip-id="code-help">
+            <button class="helperClose" type="button" aria-label="Close tip">×</button>
+            <div class="helperTitle">Arduino panel</div>
+            <p>Type Arduino-style code. Use <em>loop</em> for repeated logic and <em>setup</em> for one-time setup. Add helper tabs with the + button. Click Save in the top bar to keep your work.</p>
           </div>
         </div>
       </div>
@@ -182,6 +194,12 @@
           <div title="Clear Console"  class="clear">&#x239a;</div>
           <pre class="content"></pre>
         </div>
+
+        <div class="helperCard sim-help" data-tip-id="sim-help">
+          <button class="helperClose" type="button" aria-label="Close tip">×</button>
+          <div class="helperTitle">Simulator quickstart</div>
+          <p>Press Play to run your code. Use the globe to change worlds, Reset to restart, and the camera button to switch views. Open the joystick (bottom right) to drive manually; the ruler shows distances for planning.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -202,6 +220,7 @@
   <script src="js/arduino_generator.js"></script>
   <script src="js/arduino_python_bridge.js"></script>
   <script src="js/arduino_sim_api.js"></script>
+  <script src="js/webserial_uploader.js"></script>
   <script src="js/blockly.js?v=ee66b3a1"></script>
   <script src="js/skulpt.js?v=7acc5d68"></script>
   <script src="js/worlds/World_Base.js?v=9f07f537"></script>
@@ -216,6 +235,7 @@
   <script src="js/worlds/world_Custom.js?v=a56a2eb0"></script>
   <script src="js/worlds/world_Football.js?v=ab1b9783"></script>
   <script src="js/worlds/world_Arena.js?v=c1828281"></script>
+  <script src="js/worlds/world_Underwater.js"></script>
   <script src="js/robotComponents.js?v=c851c5ff"></script>
   <script src="js/robotTemplates.js?v=b318d615"></script>
   <script src="js/Wheel.js?v=bb27211a"></script>
@@ -305,6 +325,69 @@
     }
 
     loadWhenReady();
+  </script>
+  <script>
+    (function(){
+      const toggle = document.getElementById('helperToggle');
+      const cards = Array.from(document.querySelectorAll('.helperCard'));
+      if (!toggle || cards.length === 0) {
+        return;
+      }
+
+      const KEY = 'atlasTipsHidden';
+      const KEY_CLOSED = 'atlasTipsClosed';
+
+      function loadClosed() {
+        try {
+          const val = localStorage.getItem(KEY_CLOSED);
+          if (!val) return new Set();
+          return new Set(JSON.parse(val));
+        } catch (e) {
+          return new Set();
+        }
+      }
+
+      let closedSet = loadClosed();
+
+      function saveClosed() {
+        localStorage.setItem(KEY_CLOSED, JSON.stringify(Array.from(closedSet)));
+      }
+
+      function apply(hidden) {
+        cards.forEach((c) => {
+          const id = c.dataset.tipId || c.className;
+          const isClosed = closedSet.has(id);
+          c.classList.toggle('hide', hidden || isClosed);
+        });
+        toggle.textContent = hidden ? 'Show tips' : 'Hide tips';
+        toggle.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      }
+
+      const startHidden = localStorage.getItem(KEY) === 'true';
+      apply(startHidden);
+
+      toggle.addEventListener('click', () => {
+        const next = !cards.some((c) => !c.classList.contains('hide'));
+        if (!next) {
+          // Showing tips again clears per-card closes
+          closedSet.clear();
+          saveClosed();
+        }
+        apply(next);
+        localStorage.setItem(KEY, next ? 'true' : 'false');
+      });
+
+      cards.forEach((c) => {
+        const btn = c.querySelector('.helperClose');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const id = c.dataset.tipId || c.className;
+          closedSet.add(id);
+          saveClosed();
+          c.classList.add('hide');
+        });
+      });
+    })();
   </script>
 </body>
 </html>

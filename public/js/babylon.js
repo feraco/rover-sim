@@ -15,6 +15,7 @@ var babylon = new function() {
     self.scene = self.createScene(); // Call the createScene function
 
     self.world.setOptions().then(function(){
+      self.applyWorldPhysicsProfile();
       self.loadMeshes(self.scene);
     });
 
@@ -37,6 +38,13 @@ var babylon = new function() {
     }
     var scene = new BABYLON.Scene(self.engine);
     var gravityVector = new BABYLON.Vector3(0,-98.1, 0);
+    if (
+      self.world &&
+      self.world.physics &&
+      self.world.physics.gravity instanceof BABYLON.Vector3
+    ) {
+      gravityVector = self.world.physics.gravity;
+    }
     // var physicsPlugin = new BABYLON.CannonJSPlugin();
     // var physicsPlugin = new BABYLON.OimoJSPlugin();
     var physicsPlugin = new BABYLON.AmmoJSPlugin();
@@ -88,6 +96,47 @@ var babylon = new function() {
     // scene.debugLayer.show();
 
     return scene;
+  };
+
+  // Apply world-level physics overrides such as gravity and damping
+  this.applyWorldPhysicsProfile = function() {
+    if (!self.scene || !self.scene.getPhysicsEngine) {
+      return;
+    }
+
+    const physicsEngine = self.scene.getPhysicsEngine();
+    if (!physicsEngine) {
+      return;
+    }
+
+    const profile = (self.world && self.world.physics) ? self.world.physics : null;
+    if (!profile) {
+      return;
+    }
+
+    if (profile.gravity instanceof BABYLON.Vector3) {
+      physicsEngine.setGravity(profile.gravity);
+    }
+
+    if (
+      typeof profile.linearDamping == 'undefined' &&
+      typeof profile.angularDamping == 'undefined'
+    ) {
+      return;
+    }
+
+    const impostors = physicsEngine.getImpostors ? physicsEngine.getImpostors() : [];
+    impostors.forEach(function(impostor) {
+      if (!impostor || impostor.mass <= 0) {
+        return;
+      }
+      const body = impostor.physicsBody;
+      if (body && typeof body.setDamping == 'function') {
+        const linear = (typeof profile.linearDamping == 'number') ? profile.linearDamping : 0;
+        const angular = (typeof profile.angularDamping == 'number') ? profile.angularDamping : 0;
+        body.setDamping(linear, angular);
+      }
+    });
   };
 
   // Set othographic camera zoom
@@ -280,6 +329,7 @@ var babylon = new function() {
     });
 
     return Promise.all(loader).then(function() {
+      self.applyWorldPhysicsProfile();
       self.setCameraMode(); // Set after loading mesh as camera may be locked to mesh
 
       // For camera visualization

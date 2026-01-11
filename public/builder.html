@@ -26,13 +26,13 @@
   <script src="js/msg.js"></script>
   <script src="js/common/widgets.js"></script>
 
-  <title>ROVER Sim World Builder</title>
+  <title>ATLAS Sim World Builder</title>
   <script src="js/theme-toggle.js"></script>
 </head>
 
 <body>
   <header>
-    <div class="appTitle">ROVER Sim World Builder</div>
+    <div class="appTitle">ATLAS Sim World Builder</div>
     <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Theme">◐</button>
   </header>
 
@@ -46,6 +46,7 @@
         <div class="menuItem worldMenu">World</div>
         <div class="menuItem snapMenu">Snap</div>
       </div>
+      <button class="helperToggle" id="helperToggle" type="button" aria-pressed="false">Hide tips</button>
     </nav>
     <div class="panels">
       <div class="panel active" aria-labelledby="navWorld">
@@ -84,6 +85,11 @@
             </table>
           </div>
         </div>
+        <div class="helperCard block-help" data-tip-id="builder-help">
+          <button class="helperClose" type="button" aria-label="Close tip">×</button>
+          <div class="helperTitle">World Builder tips</div>
+          <p>Use Add to drop a new object, then drag it in the scene to move it. Clone duplicates the selected object; Delete removes it. Snap menu controls grid snapping; Undo rolls back the last change. The ruler shows distances and angles to plan layouts.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -108,6 +114,69 @@
   <script src="js/builtInModels.js?v=82f73098"></script>
   <script src="js/GenConfig.js?v=3007e163"></script>
   <script src="js/builder.js?v=a8d24858"></script>
+
+  <script>
+    (function(){
+      const toggle = document.getElementById('helperToggle');
+      const cards = Array.from(document.querySelectorAll('.helperCard'));
+      if (!toggle || cards.length === 0) {
+        return;
+      }
+
+      const KEY = 'atlasTipsHidden';
+      const KEY_CLOSED = 'atlasTipsClosed';
+
+      function loadClosed() {
+        try {
+          const val = localStorage.getItem(KEY_CLOSED);
+          if (!val) return new Set();
+          return new Set(JSON.parse(val));
+        } catch (e) {
+          return new Set();
+        }
+      }
+
+      let closedSet = loadClosed();
+
+      function saveClosed() {
+        localStorage.setItem(KEY_CLOSED, JSON.stringify(Array.from(closedSet)));
+      }
+
+      function apply(hidden) {
+        cards.forEach((c) => {
+          const id = c.dataset.tipId || c.className;
+          const isClosed = closedSet.has(id);
+          c.classList.toggle('hide', hidden || isClosed);
+        });
+        toggle.textContent = hidden ? 'Show tips' : 'Hide tips';
+        toggle.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      }
+
+      const startHidden = localStorage.getItem(KEY) === 'true';
+      apply(startHidden);
+
+      toggle.addEventListener('click', () => {
+        const next = !cards.some((c) => !c.classList.contains('hide'));
+        if (!next) {
+          closedSet.clear();
+          saveClosed();
+        }
+        apply(next);
+        localStorage.setItem(KEY, next ? 'true' : 'false');
+      });
+
+      cards.forEach((c) => {
+        const btn = c.querySelector('.helperClose');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const id = c.dataset.tipId || c.className;
+          closedSet.add(id);
+          saveClosed();
+          c.classList.add('hide');
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>

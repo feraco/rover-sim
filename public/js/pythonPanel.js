@@ -63,7 +63,7 @@ var pythonPanel = new function() {
       enableLiveAutocompletion: true
     });
 
-    // Add the custom GearsBot completer for context-aware suggestions.
+    // Add the custom ATLAS Bots completer for context-aware suggestions.
     langTools.addCompleter(GearsBotCompleter.Completer);
 
     // Manually trigger autocomplete when a dot is typed.

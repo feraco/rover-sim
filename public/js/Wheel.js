@@ -254,7 +254,19 @@ function Wheel(scene, parent, pos, rot, port, options) {
       return;
     }
 
-    self.mesh.physicsImpostor.applyForce(self.TIRE_DOWNWARDS_FORCE, self.mesh.getAbsolutePosition());
+    let applyDownforce = true;
+    if (
+      typeof babylon != 'undefined' &&
+      babylon.world &&
+      babylon.world.physics &&
+      babylon.world.physics.disableDownforce
+    ) {
+      applyDownforce = false;
+    }
+
+    if (applyDownforce) {
+      self.mesh.physicsImpostor.applyForce(self.TIRE_DOWNWARDS_FORCE, self.mesh.getAbsolutePosition());
+    }
     if (self.mode == self.modes.RUN) {
       self.setMotorSpeed(delta);
     } else if (self.mode == self.modes.RUN_TIL_TIME) {

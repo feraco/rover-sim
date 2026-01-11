@@ -476,6 +476,36 @@ class Plotter {
     this.ctx.strokeStyle = color;
   }
 
+  drawAxes(xLabel, yLabel) {
+    this.ctx.save();
+    this.ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+    this.ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    this.ctx.lineWidth = 1;
+
+    // X axis
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, this.canvas.height - 15);
+    this.ctx.lineTo(this.canvas.width, this.canvas.height - 15);
+    this.ctx.stroke();
+
+    // Y axis
+    this.ctx.beginPath();
+    this.ctx.moveTo(30, this.canvas.height);
+    this.ctx.lineTo(30, 0);
+    this.ctx.stroke();
+
+    this.ctx.font = '12px Arial';
+    this.ctx.textBaseline = 'bottom';
+    this.ctx.fillText(xLabel, this.canvas.width - 70, this.canvas.height - 2);
+    this.ctx.save();
+    this.ctx.translate(12, 40);
+    this.ctx.rotate(-Math.PI / 2);
+    this.ctx.fillText(yLabel, 0, 0);
+    this.ctx.restore();
+
+    this.ctx.restore();
+  }
+
   drawLegend(entries) {
     // entries: [{label, color}]
     const padding = 8;
