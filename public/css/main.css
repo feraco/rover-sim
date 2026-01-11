@@ -228,6 +228,69 @@ ul.menuDropDownRightAlign {
   top: 100%;
 }
 
+.helperToggle {
+  position: absolute;
+  right: 1em;
+  top: 0.3em;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.2s;
+}
+.helperToggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.helperCard {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1em;
+  max-width: 350px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.helperCard.hide {
+  display: none;
+}
+.helperCard .helperClose {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+}
+.helperCard .helperClose:hover {
+  color: #333;
+}
+.helperCard .helperTitle {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+  color: #333;
+  padding-right: 1.5em;
+}
+.helperCard p {
+  margin: 0;
+  line-height: 1.5;
+  color: #666;
+}
+
 .blocklyEditor .disable {
   position: absolute;
   top: 0px;
