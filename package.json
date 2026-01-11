@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "npx http-server public -p 8080 -c-1",
+    "build": "sass scss/main.scss public/css/main.css && sass scss/widgets.scss public/css/widgets.css",
     "build:css": "sass scss/main.scss public/css/main.css && sass scss/widgets.scss public/css/widgets.css"
   },
   "devDependencies": {
