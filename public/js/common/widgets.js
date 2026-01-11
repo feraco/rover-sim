@@ -35,19 +35,21 @@ function menuDropDown($menuBtn, menuItems, options) {
     $dropDown.append($li);
   });
 
+  const rect = $menuBtn[0].getBoundingClientRect();
+
   if (options.parentIsAbsolute) {
     $dropDown.addClass('menuDropDownRightAlign')
   } else {
-    let top = $menuBtn[0].offsetTop + $menuBtn[0].offsetHeight;
-    $dropDown.css('top', top);
+    let top = rect.bottom;
+    $dropDown.css('top', top + 'px');
   }
 
   if (options.align == 'right') {
     $dropDown.css('left', 'auto');
-    $dropDown.css('right', '0');
+    $dropDown.css('right', (window.innerWidth - rect.right) + 'px');
   } else {
-    let left = $menuBtn[0].offsetLeft;
-    $dropDown.css('left', left);
+    let left = rect.left;
+    $dropDown.css('left', left + 'px');
   }
 
   $(document).one('click', function(e){
