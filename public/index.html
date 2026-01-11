@@ -367,7 +367,8 @@
       apply(startHidden);
 
       toggle.addEventListener('click', () => {
-        const next = !cards.some((c) => !c.classList.contains('hide'));
+        const currentlyHidden = localStorage.getItem(KEY) === 'true';
+        const next = !currentlyHidden;
         if (!next) {
           // Showing tips again clears per-card closes
           closedSet.clear();
