@@ -1,31 +1,49 @@
 @keyframes show {
   0% {
-    transform: translateY(100vh) scaleX(0.1);
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  80% {
+    transform: translateY(5px) scale(0.98);
   }
   100% {
-    transform: translateY(0) scaleX(1);
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 }
 @keyframes hide {
   from {
-    transform: scale(1, 1);
+    transform: scale(1);
+    opacity: 1;
   }
   to {
-    transform: scale(0, 0);
+    transform: scale(0.8);
+    opacity: 0;
   }
 }
 @keyframes toast {
   0% {
-    transform: scale(0, 0);
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
   }
   10% {
-    transform: scale(1, 1);
+    transform: scale(1.05) translateY(0);
+    opacity: 1;
+  }
+  15% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
   }
   90% {
-    transform: scale(1, 1);
+    transform: scale(1) translateY(0);
+    opacity: 1;
   }
   100% {
-    transform: scale(0, 0);
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
   }
 }
 .animatedHide {
@@ -39,7 +57,9 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,30 +67,42 @@
 #activitySpinner > i {
   font-size: 200px;
   color: white;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  animation: spin 1.5s ease-in-out infinite;
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .toastMsg {
   z-index: 2000;
   animation-name: toast;
-  animation-duration: 1s;
-  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: forwards;
   position: fixed;
   font-size: 130%;
+  font-weight: 600;
   width: 60%;
   left: 0;
   right: 0;
   margin: auto;
   top: 3%;
-  border-radius: 10px;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  border-radius: 1em;
+  padding: 0.8em 1.2em;
   text-align: center;
-  box-shadow: 5px 5px 10px black;
-  background: grey;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .dialogScreen {
@@ -80,7 +112,9 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(6, 6, 10, 0.55);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-size: 100%;
   display: flex;
   align-items: center;
@@ -88,74 +122,126 @@
 }
 .dialogScreen > .dialogWindow {
   animation-name: show;
-  animation-duration: 0.2s;
-  animation-timing-function: linear;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: forwards;
   width: 40em;
   max-width: 90%;
   top: 10%;
   position: absolute;
-  background: rgba(12, 12, 16, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   color: #f5f5f5;
-  border-radius: 14px;
+  border-radius: 1.2em;
   font-size: 120%;
   max-height: 80%;
   overflow-y: auto;
   margin: auto;
-  border: solid 1px rgba(255, 255, 255, 0.18);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
 }
 .dialogScreen > .dialogWindow > .dialogTitle {
-  padding: 0.4rem 1.2rem;
-  font-size: 130%;
-  font-weight: bold;
-  border-bottom: solid 1px rgba(255, 255, 255, 0.15);
+  padding: 0.8rem 1.4rem;
+  font-size: 135%;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .dialogScreen > .dialogWindow > .dialogBody {
-  padding: 0.8rem 1.2rem;
+  padding: 1rem 1.4rem;
   overflow-y: auto;
 }
 .dialogScreen > .dialogWindow > .dialogBody input {
   font-size: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.4em 0.6em;
+  color: white;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dialogScreen > .dialogWindow > .dialogBody input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 .dialogScreen > .dialogWindow > .dialogButtonsRow {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  padding: 0.5em 1em;
+  padding: 0.8em 1.4em;
   box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  gap: 0.5em;
 }
 .dialogScreen > .dialogWindow > .dialogButtonsRow > button {
-  margin-left: 5px;
   font-size: 100%;
   border: none;
-  border-radius: 0.3em;
-  padding: 0.2em 0.5em;
-  min-width: 4em;
-  border: solid 1px rgba(255, 255, 255, 0.2);
+  border-radius: 0.6em;
+  padding: 0.5em 1.2em;
+  min-width: 5em;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow > button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow > button:active {
+  transform: translateY(0);
 }
 .dialogScreen > .dialogWindow > .dialogButtonsRow .push-left {
   margin-right: auto;
 }
 .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success {
-  color: #0d1;
-  background-color: rgba(40, 255, 120, 0.15);
+  color: white;
+  background: rgba(76, 217, 100, 0.3);
+  border-color: rgba(76, 217, 100, 0.4);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success:hover {
+  background: rgba(76, 217, 100, 0.4);
+  border-color: rgba(76, 217, 100, 0.5);
+  box-shadow: 0 8px 24px rgba(76, 217, 100, 0.3);
 }
 .dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
-  background-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   color: #f5f5f5;
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 .dialogScreen > .dialogWindow select {
   font-size: 100%;
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.1);
   color: #f5f5f5;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.4em;
-  padding: 0.4em 0.5em;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.5em 0.7em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dialogScreen > .dialogWindow select:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+.dialogScreen > .dialogWindow select:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .animateClick {

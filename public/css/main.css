@@ -9,43 +9,97 @@ html, body {
 }
 
 body {
-  background: #E4F0FE;
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(252, 70, 107, 0.3), transparent 50%), radial-gradient(circle at 40% 20%, rgba(99, 179, 237, 0.2), transparent 50%);
+  animation: gradientShift 20s ease-in-out infinite;
+  z-index: 0;
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 header {
-  background: #4994FB;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
   color: white;
   padding: 0em 1em;
   height: 2.2em;
   align-items: center;
+  position: relative;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 header .gearsIcon {
   height: 1.6em;
   margin-right: 0.5em;
   margin-top: -0.3em;
   margin-bottom: -0.3em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 header #projectName, header #robotName {
   margin-left: 1em;
-  background: #76AFFC;
-  border: dashed 1px #5781BA;
-  border-radius: 0.3em;
-  padding: 0.3em 0.5em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.8em;
   position: relative;
   color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+header #projectName:hover, header #robotName:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+header #projectName:focus, header #robotName:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 header #projectName::placeholder {
-  color: #95989A;
+  color: rgba(255, 255, 255, 0.6);
 }
 header .language {
   margin-left: auto;
   cursor: pointer;
   user-select: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+header .language:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .bold {
@@ -56,62 +110,94 @@ main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 nav {
   margin-top: 0.5em;
   display: flex;
-  border-bottom: solid 1px #bbbbbb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding-bottom: 0.3em;
 }
 nav ul.panelTabs {
   display: flex;
   padding-left: 5px;
   margin: 0;
+  gap: 0.3em;
 }
 nav ul.panelTabs li {
   display: block;
-  border: solid 1px #bbbbbb;
-  padding: 0.3em 1em;
-  border-radius: 0.5em 0.5em 0 0;
-  border-bottom: none;
-  margin-left: -5px;
-  background: #D9E3F1;
-  color: #999999;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4em 1.2em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 nav ul.panelTabs li:hover {
-  background: #E4F0FE;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 nav ul.panelTabs li.active {
   z-index: 1;
-  background: white;
-  color: #4994FB;
-  margin-top: -5px;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
   font-size: 110%;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 nav .menuBar {
   display: flex;
   margin-left: 0.5em;
+  gap: 0.2em;
 }
 nav .menuBar .menuItem {
-  padding: 0.3em 0.5em;
-  font-weight: bold;
-  color: gray;
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   user-select: none;
+  border-radius: 0.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 nav .menuBar .menuItem:hover {
-  color: #4994FB;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
 }
 nav .news {
   margin-left: 2em;
   font-weight: bold;
-  color: red;
+  color: #ff6b6b;
   cursor: pointer;
   user-select: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+nav .news:hover {
+  background: rgba(255, 107, 107, 0.2);
+  transform: scale(1.05);
 }
 nav .panelControlsArea {
   margin-left: auto;
@@ -125,23 +211,33 @@ nav .panelControlsArea .panelControls .codeTypeSelector {
   margin-right: 1em;
 }
 nav .panelControlsArea .panelControls .codeTypeSelector button {
-  background: #E4F0FE;
-  border: 1px solid #4994FB;
-  color: #4994FB;
-  padding: 0.3em 0.8em;
-  border-radius: 0.3em;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.4em 1em;
+  border-radius: 0.6em;
   cursor: pointer;
   font-size: 0.9em;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 nav .panelControlsArea .panelControls .codeTypeSelector button:hover {
-  background: #D0E8FF;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 nav .panelControlsArea .panelControls .codeTypeSelector button.active {
-  background: #4994FB;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
   color: white;
-  font-weight: bold;
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 nav .panelControlsArea .panelControls.active {
   display: block;
@@ -151,25 +247,41 @@ nav .panelControlsArea .panelControls.active {
   flex-grow: 1;
   position: relative;
   overflow: hidden;
+  margin: 0.5em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .panels .panel {
   height: 100%;
   width: 100%;
   z-index: -1;
   position: absolute;
+  border-radius: inherit;
+  overflow: hidden;
 }
 .panels .panel.active {
   z-index: 0;
 }
 
 .saveBlockly, .savePython {
-  font-weight: bold;
-  color: gray;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   user-select: none;
   margin: 0 1em;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-
+.saveBlockly:hover, .savePython:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
 .saveBlockly.hide, .savePython.hide {
   display: none;
 }
@@ -232,31 +344,42 @@ ul.menuDropDownRightAlign {
   position: absolute;
   right: 1em;
   top: 0.3em;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 0.4em 0.8em;
-  border-radius: 4px;
+  padding: 0.4em 0.9em;
+  border-radius: 0.6em;
   cursor: pointer;
   font-size: 0.9em;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .helperToggle:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .helperCard {
   position: absolute;
   bottom: 1em;
   right: 1em;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1em;
+  padding: 1.2em;
   max-width: 350px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   z-index: 1000;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: helperSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .helperCard.hide {
   display: none;
@@ -265,39 +388,60 @@ ul.menuDropDownRightAlign {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: #999;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.4em;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   line-height: 1;
-  padding: 0;
+  padding: 0.1em 0.3em;
   width: 1.5em;
   height: 1.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .helperCard .helperClose:hover {
-  color: #333;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: scale(1.1);
 }
 .helperCard .helperTitle {
-  font-weight: bold;
-  font-size: 1.1em;
-  margin-bottom: 0.5em;
-  color: #333;
+  font-weight: 700;
+  font-size: 1.15em;
+  margin-bottom: 0.6em;
+  color: white;
   padding-right: 1.5em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .helperCard p {
   margin: 0;
-  line-height: 1.5;
-  color: #666;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+@keyframes helperSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 .blocklyEditor .disable {
   position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background: rgba(100, 100, 100, 0.6);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -305,23 +449,45 @@ ul.menuDropDownRightAlign {
 }
 .blocklyEditor .disable .enable {
   font-size: 200%;
-  color: red;
-  border: solid 2px red;
-  padding: 0.5em;
-  border-radius: 0.5em;
+  color: white;
+  background: rgba(255, 59, 48, 0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid rgba(255, 59, 48, 0.5);
+  padding: 0.7em 1.2em;
+  border-radius: 0.8em;
   cursor: pointer;
   user-select: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  box-shadow: 0 16px 40px rgba(255, 59, 48, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.blocklyEditor .disable .enable:hover {
+  background: rgba(255, 59, 48, 0.4);
+  border-color: rgba(255, 59, 48, 0.6);
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(255, 59, 48, 0.4);
 }
 .blocklyEditor #blocklyPages {
   position: absolute;
   top: 0.5em;
   right: 1em;
-  border: solid 1px #bbbbbb;
-  border-radius: 0.5em;
-  padding: 0.5em;
-  color: gray;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.5em 0.8em;
+  color: rgba(255, 255, 255, 0.9);
   user-select: none;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.blocklyEditor #blocklyPages:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: white;
 }
 .blocklyEditor #blocklyPages ul.menuDropDown {
   right: 0;
@@ -350,81 +516,172 @@ ul.menuDropDownRightAlign {
 .runSim {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 2em;
   left: 2em;
   font-size: 200%;
   cursor: pointer;
   user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.runSim:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.runSim:active {
+  transform: translateY(0);
 }
 
 .startSim {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 2em;
   left: 1.5em;
   font-size: 200%;
   cursor: pointer;
   user-select: none;
+  background: rgba(76, 217, 100, 0.2);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(76, 217, 100, 0.4);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.startSim:hover {
+  background: rgba(76, 217, 100, 0.3);
+  border-color: rgba(76, 217, 100, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(76, 217, 100, 0.3);
+}
+.startSim:active {
+  transform: translateY(0) scale(1);
 }
 
 .stopSim {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 2em;
   left: 2.5em;
   font-size: 200%;
   cursor: pointer;
   user-select: none;
+  background: rgba(255, 59, 48, 0.2);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 59, 48, 0.4);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.stopSim:hover {
+  background: rgba(255, 59, 48, 0.3);
+  border-color: rgba(255, 59, 48, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(255, 59, 48, 0.3);
+}
+.stopSim:active {
+  transform: translateY(0) scale(1);
 }
 
 .world {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 2em;
   left: 4em;
   font-size: 200%;
   cursor: pointer;
   user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.world:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.world:active {
+  transform: translateY(0);
 }
 
 .reset {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 2em;
   left: 6em;
   font-size: 200%;
   cursor: pointer;
   user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.reset:active {
+  transform: translateY(0);
 }
 
 .cameraSelector, .cameraSelectorShort {
   position: absolute;
   overflow: hidden;
-  color: #444;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0.5em;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  opacity: 0.8;
   top: 1em;
   right: 1.5em;
   height: 6.2em;
   font-size: 300%;
-  transition: 0.3s height, 0.3s color, 0.3s background-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .cameraSelector > div, .cameraSelectorShort > div {
   margin: 0.2em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cameraSelector > div:hover, .cameraSelectorShort > div:hover {
+  transform: scale(1.1);
 }
 .cameraSelector .hide, .cameraSelectorShort .hide {
   display: none;
+}
+.cameraSelector:hover, .cameraSelectorShort:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .cameraSelectorShort {
@@ -433,17 +690,21 @@ ul.menuDropDownRightAlign {
 
 .cameraSelector.closed, .cameraSelectorShort.closed {
   color: white;
-  background: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
   height: 1.3em !important;
 }
 
 .ruler {
   position: absolute;
-  color: black;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0.5em;
-  padding: 0.2em;
-  opacity: 0.8;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em 0.6em;
   top: 4em;
   left: 2em;
   font-size: 200%;
@@ -453,7 +714,8 @@ ul.menuDropDownRightAlign {
   align-items: center;
   width: 13em;
   overflow: hidden;
-  transition: 0.5s width, 0.5s color, 0.5s background-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .ruler .icon {
   margin-right: 0.5em;
@@ -462,6 +724,7 @@ ul.menuDropDownRightAlign {
 .ruler .row1, .ruler .row2 {
   font-size: 50%;
   white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .ruler .measurements {
   font-size: 50%;
@@ -473,21 +736,30 @@ ul.menuDropDownRightAlign {
 }
 .ruler .measurements td {
   width: 33%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.ruler:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .ruler.closed {
   color: white;
-  background: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
   width: 1.3em;
 }
 
 .joystick {
   position: absolute;
-  color: black;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0.5em;
-  padding: 0.2em;
-  opacity: 0.8;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em;
   top: 6em;
   left: 2em;
   font-size: 200%;
@@ -498,8 +770,9 @@ ul.menuDropDownRightAlign {
   width: 7em;
   height: 4.8em;
   overflow: hidden;
-  transition: 0.5s width, 0.5s height, 0.5s color, 0.5s background-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .joystick .icon {
   margin-right: 0.5em;
@@ -530,18 +803,22 @@ ul.menuDropDownRightAlign {
 
 .joystick.closed {
   color: white;
-  background: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
   width: 1.3em;
   height: 1.3em;
 }
 
 .hubButtons {
   position: absolute;
-  color: black;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0.5em;
-  padding: 0.2em;
-  opacity: 0.8;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em;
   top: 8em;
   left: 2em;
   font-size: 200%;
@@ -552,8 +829,9 @@ ul.menuDropDownRightAlign {
   width: 6.5em;
   height: 4.8em;
   overflow: hidden;
-  transition: 0.5s width, 0.5s height, 0.5s color, 0.5s background-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .hubButtons .icon {
   margin-right: 0.5em;
@@ -596,7 +874,9 @@ ul.menuDropDownRightAlign {
 
 .hubButtons.closed {
   color: white;
-  background: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
   width: 1.3em;
   height: 1.3em;
 }
@@ -606,13 +886,16 @@ ul.menuDropDownRightAlign {
   bottom: 0;
   left: 0;
   right: 0;
-  background: black;
-  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(25px) saturate(120%);
+  -webkit-backdrop-filter: blur(25px) saturate(120%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   font-size: 150%;
   height: 2em;
   overflow: hidden;
-  transition: height 0.5s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
 }
 .console .chevron {
   position: absolute;
@@ -779,20 +1062,35 @@ ul.menuDropDownRightAlign {
 .sensors {
   position: absolute;
   color: white;
-  opacity: 0.8;
   top: 1.2em;
   right: 3.5em;
   font-size: 300%;
   cursor: pointer;
   user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.15em 0.25em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.sensors:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
 }
 
 .sensorReadings {
   position: absolute;
-  color: black;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0.5em;
-  padding: 0.5em;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.8em;
   top: 9em;
   right: 4em;
   font-size: 100%;
@@ -800,25 +1098,37 @@ ul.menuDropDownRightAlign {
   max-height: 70%;
   overflow-y: auto;
   opacity: 1;
-  transition: 0.5s opacity, 0.5s max-height, 0.5s padding;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .sensorReadings .sensorReading {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.7em;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .sensorReadings .sensorReading .sensorType {
   text-align: center;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .sensorReadings .sensorReading table.sensorValues {
   width: 100%;
   border-collapse: collapse;
 }
 .sensorReadings .sensorReading table.sensorValues td {
-  border: solid 2px #bbbbbb;
-  color: darkblue;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 0.3em;
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .sensorReadings .sensorReading table.sensorValues td.sensorValue {
   text-align: right;
   min-width: 2em;
+  font-weight: 600;
 }
 
 .sensorReadings.hide {
@@ -842,9 +1152,12 @@ ul.menuDropDownRightAlign {
 .worldInfo {
   position: absolute;
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 0.25em;
-  padding: 0.5em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.7em 0.9em;
   top: 0.5em;
   left: 50%;
   width: 14em;
@@ -852,6 +1165,7 @@ ul.menuDropDownRightAlign {
   font-size: 200%;
   max-height: 20%;
   overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .worldInfo .row {
   display: flex;
@@ -1199,9 +1513,11 @@ ul.menuDropDownRightAlign {
 .python {
   display: flex;
   flex-direction: column;
-  background: #2F3129;
+  background: rgba(47, 49, 41, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   font-size: 125%;
-  font-family: monospace;
+  font-family: "Monaco", "Menlo", "Consolas", monospace;
   width: 100%;
   height: 100%;
 }
@@ -1216,31 +1532,52 @@ ul.menuDropDownRightAlign {
 .python #filesRow {
   display: flex;
   align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3em 0.5em;
 }
 .python #filesRow #filesList {
   display: flex;
   overflow-x: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  gap: 0.3em;
 }
 .python #filesRow #filesList .file {
   display: flex;
-  background: #515251;
-  color: #999b99;
-  border-left: solid 1px #272822;
-  border-right: solid 1px #272822;
-  padding: 0.3em;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.5em;
+  padding: 0.4em 0.8em;
   cursor: pointer;
   user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+.python #filesRow #filesList .file:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
 }
 .python #filesRow #filesList .file .renameFile, .python #filesRow #filesList .file .deleteFile {
   display: none;
   margin-left: 0.5em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.python #filesRow #filesList .file .renameFile:hover, .python #filesRow #filesList .file .deleteFile:hover {
+  opacity: 1;
 }
 .python #filesRow #filesList .file.selected {
-  background-color: #272822;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  color: white;
+  font-weight: 600;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .python #filesRow #filesList .file.selected .renameFile, .python #filesRow #filesList .file.selected .deleteFile {
   display: block;
@@ -1249,10 +1586,21 @@ ul.menuDropDownRightAlign {
   display: none;
 }
 .python #filesRow #addNewFile {
-  padding: 0.3em 0.5em;
-  color: white;
+  padding: 0.4em 0.8em;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5em;
   cursor: pointer;
   user-select: none;
+  margin-left: 0.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+.python #filesRow #addNewFile:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .componentsWindow, .objectsWindow {
