@@ -438,6 +438,9 @@ ul.menuDropDownRightAlign {
     transform: translateY(0) scale(1);
   }
 }
+.blocklyEditor {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
 .blocklyEditor .disable {
   position: absolute;
   top: 0px;
