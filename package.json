@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "npx http-server public -p 8080 -c-1",
-    "build": "sass scss/main.scss public/css/main.css && sass scss/widgets.scss public/css/widgets.css",
-    "build:css": "sass scss/main.scss public/css/main.css && sass scss/widgets.scss public/css/widgets.css"
+    "dev": "npx http-server . -p 8080 -c-1",
+    "build": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css",
+    "build:css": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css"
   },
   "devDependencies": {
     "sass": "^1.97.2"
