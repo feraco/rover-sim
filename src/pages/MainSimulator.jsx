@@ -50,7 +50,7 @@ function MainSimulator() {
             }}
             onClick={() => setActivePanel('blocks')}
             id="navBlocks">
-            Blocks
+            Arduino Blocks
           </button>
           <button
             style={{
@@ -63,7 +63,7 @@ function MainSimulator() {
             }}
             onClick={() => setActivePanel('sim')}
             id="navSim">
-            Simulator
+            3D Simulator
           </button>
         </div>
         <div className="navActions" style={{ display: 'flex', gap: '10px' }}>

@@ -4,7 +4,7 @@ export const useUIStore = create((set) => ({
   activePanel: 'blocks',
   projectName: 'Untitled',
   isModified: false,
-  generator: 'python',
+  generator: 'arduino',
   selectedRobot: null,
   selectedWorld: null,
   cameraMode: 'follow',

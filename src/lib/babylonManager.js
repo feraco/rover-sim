@@ -37,7 +37,8 @@ export class BabylonManager {
     this.setupCamera();
     this.setupLighting();
     this.setupShadows();
-    console.log('BabylonManager: Camera, lighting, and shadows set up');
+    this.setupDefaultGround();
+    console.log('BabylonManager: Camera, lighting, shadows, and ground set up');
 
     this.engine.runRenderLoop(() => {
       this.scene.render();
@@ -114,6 +115,44 @@ export class BabylonManager {
     this.shadowGenerator.useBlurExponentialShadowMap = true;
     this.shadowGenerator.blurKernel = 32;
     this.scene.shadowGenerator = this.shadowGenerator;
+  }
+
+  setupDefaultGround() {
+    const ground = BABYLON.MeshBuilder.CreateGround('ground', {
+      width: 200,
+      height: 200
+    }, this.scene);
+
+    const groundMat = new BABYLON.StandardMaterial('groundMat', this.scene);
+    groundMat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+    groundMat.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+    ground.material = groundMat;
+    ground.receiveShadows = true;
+
+    ground.physicsImpostor = new BABYLON.PhysicsImpostor(
+      ground,
+      BABYLON.PhysicsImpostor.BoxImpostor,
+      { mass: 0, restitution: 0.3, friction: 0.8 },
+      this.scene
+    );
+
+    const testBox = BABYLON.MeshBuilder.CreateBox('testBox', {
+      size: 10
+    }, this.scene);
+    testBox.position.y = 20;
+
+    const boxMat = new BABYLON.StandardMaterial('boxMat', this.scene);
+    boxMat.diffuseColor = new BABYLON.Color3(0.8, 0.2, 0.2);
+    testBox.material = boxMat;
+
+    testBox.physicsImpostor = new BABYLON.PhysicsImpostor(
+      testBox,
+      BABYLON.PhysicsImpostor.BoxImpostor,
+      { mass: 1, restitution: 0.5, friction: 0.5 },
+      this.scene
+    );
+
+    this.shadowGenerator.addShadowCaster(testBox);
   }
 
   setCameraMode(mode, target) {

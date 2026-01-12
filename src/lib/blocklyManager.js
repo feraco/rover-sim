@@ -3,7 +3,7 @@ import * as Blockly from 'blockly';
 export class BlocklyManager {
   constructor() {
     this.workspace = null;
-    this.generator = 'python';
+    this.generator = 'arduino';
     this.toolbox = null;
   }
 
