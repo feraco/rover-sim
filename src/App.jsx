@@ -2,6 +2,7 @@ import React from 'react'
 
 function App() {
   console.log('App component rendering - TEST');
+  console.log('Dev server should be running...');
 
   return (
     <div style={{
