@@ -8,6 +8,8 @@ export function SimPanel() {
   const { isRunning, stop, reset } = useSimulation();
   const { cameraMode, showSensors, showRuler, setCameraMode } = useUIStore();
 
+  console.log('SimPanel render:', { isReady, hasManager: !!babylonManager, isRunning });
+
   useEffect(() => {
     console.log('SimPanel mounted');
     if (babylonManager && isReady) {

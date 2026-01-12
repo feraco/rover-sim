@@ -13,23 +13,31 @@ export class BabylonManager {
   }
 
   async init() {
+    console.log('BabylonManager: Starting initialization...');
     this.engine = new BABYLON.Engine(this.canvas, true, {
       preserveDrawingBuffer: true,
       stencil: true
     });
+    console.log('BabylonManager: Engine created');
 
     this.scene = new BABYLON.Scene(this.engine);
     this.scene.clearColor = new BABYLON.Color4(0.9, 0.9, 0.9, 1);
+    console.log('BabylonManager: Scene created');
+
+    console.log('BabylonManager: Loading physics engine...');
+    await this.loadPhysicsEngine();
+    console.log('BabylonManager: Physics engine loaded');
 
     this.scene.enablePhysics(
       new BABYLON.Vector3(0, -98.1, 0),
       new BABYLON.AmmoJSPlugin()
     );
+    console.log('BabylonManager: Physics enabled');
 
-    await this.loadPhysicsEngine();
     this.setupCamera();
     this.setupLighting();
     this.setupShadows();
+    console.log('BabylonManager: Camera, lighting, and shadows set up');
 
     this.engine.runRenderLoop(() => {
       this.scene.render();
@@ -39,6 +47,7 @@ export class BabylonManager {
       this.engine.resize();
     });
 
+    console.log('BabylonManager: Initialization complete!');
     return {
       engine: this.engine,
       scene: this.scene,
