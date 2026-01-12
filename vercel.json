@@ -32,7 +32,7 @@
   ],
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/(?!.*\\.(js|css|json|wasm|png|jpg|jpeg|gif|svg|mp3|ogg|wav|html)$).*",
       "destination": "/index.html"
     }
   ]
