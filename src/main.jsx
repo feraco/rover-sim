@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import './styles/main.scss'
 
 console.log('main.jsx loading...');
 console.log('Root element:', document.getElementById('root'));

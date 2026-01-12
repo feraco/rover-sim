@@ -39,9 +39,13 @@ export function SimPanel() {
           border: 'none',
           cursor: isRunning ? 'not-allowed' : 'pointer',
           borderRadius: '4px',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px'
         }}>
-          ↻ Reset
+          <span className="icon-reset" style={{ fontSize: '16px' }}></span>
+          Reset
         </button>
         <button onClick={stop} disabled={!isRunning} style={{
           padding: '6px 12px',
@@ -50,9 +54,13 @@ export function SimPanel() {
           border: 'none',
           cursor: !isRunning ? 'not-allowed' : 'pointer',
           borderRadius: '4px',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px'
         }}>
-          ■ Stop
+          <span className="icon-stop" style={{ fontSize: '16px' }}></span>
+          Stop
         </button>
         <div className="cameraControls" style={{ display: 'flex', gap: '5px', marginLeft: 'auto' }}>
           <button
