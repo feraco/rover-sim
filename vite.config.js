@@ -25,10 +25,11 @@ export default defineConfig({
   },
   server: {
     port: 8080,
-    open: true
+    open: false
   },
   assetsInclude: ['**/*.wasm', '**/*.xml', '**/*.glb', '**/*.gltf'],
   optimizeDeps: {
-    exclude: ['@babylonjs/loaders']
+    exclude: ['@babylonjs/loaders'],
+    force: true
   }
 })
