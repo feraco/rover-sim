@@ -5,13 +5,49 @@ import { useUIStore } from '../store/uiStore';
 
 export function SimPanel() {
   const { canvasRef, babylonManager, isReady } = useBabylon();
-  const { isRunning, stop, reset } = useSimulation();
+  const { isRunning, stop, reset, loadRobot } = useSimulation();
   const { cameraMode, showSensors, showRuler, setCameraMode } = useUIStore();
+  const [robotLoaded, setRobotLoaded] = useState(false);
 
   console.log('SimPanel render:', { isReady, hasManager: !!babylonManager, isRunning });
 
   useEffect(() => {
     console.log('SimPanel mounted');
+    if (babylonManager && isReady && !robotLoaded) {
+      console.log('Loading default robot...');
+      const defaultRobotConfig = {
+        bodyHeight: 12,
+        bodyWidth: 14,
+        bodyLength: 18,
+        wheelDiameter: 5.6,
+        wheelWidth: 0.8,
+        bodyEdgeToWheelCenterY: 1,
+        bodyEdgeToWheelCenterZ: 2,
+        bodyMass: 1000,
+        wheelMass: 200,
+        casterMass: 200,
+        wheelToBodyOffset: 0.2,
+        bodyFriction: 0,
+        wheelFriction: 10,
+        casterFriction: 0.1,
+        wheelMaxAcceleration: 3000,
+        wheelStopActionHoldForce: 2000,
+        wheelTireDownwardsForce: 1000,
+        color: '#f09c0d',
+        caster: true,
+        wheels: true
+      };
+
+      loadRobot(defaultRobotConfig).then(() => {
+        console.log('Default robot loaded successfully');
+        setRobotLoaded(true);
+      }).catch(err => {
+        console.error('Failed to load robot:', err);
+      });
+    }
+  }, [babylonManager, isReady, loadRobot, robotLoaded]);
+
+  useEffect(() => {
     if (babylonManager && isReady) {
       babylonManager.setCameraMode(cameraMode);
     }
