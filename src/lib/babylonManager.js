@@ -48,8 +48,20 @@ export class BabylonManager {
 
   async loadPhysicsEngine() {
     if (!window.Ammo) {
-      const AmmoLib = await import('/vendor/ammo/ammo-20210414.wasm.js');
-      window.Ammo = await AmmoLib.default();
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = '/vendor/ammo/ammo-20210414.wasm.js';
+        script.onload = async () => {
+          if (window.Ammo) {
+            window.Ammo = await window.Ammo();
+            resolve();
+          } else {
+            reject(new Error('Ammo.js failed to load'));
+          }
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
     }
   }
 

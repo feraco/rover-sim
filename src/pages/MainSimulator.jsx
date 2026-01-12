@@ -1,19 +1,61 @@
-import React from 'react'
+import { SimPanel } from '../components/SimPanel';
+import { BlocklyPanel } from '../components/BlocklyPanel';
+import { PythonPanel } from '../components/PythonPanel';
+import { useUIStore } from '../store/uiStore';
 
 function MainSimulator() {
+  const { activePanel, setActivePanel } = useUIStore();
+
   return (
-    <div className="page-container">
-      <h1>ATLAS Sim - Main Simulator</h1>
-      <p>Main simulator interface will be migrated here.</p>
-      <p>This will include:</p>
-      <ul>
-        <li>Blockly visual programming panel</li>
-        <li>Python code editor panel</li>
-        <li>3D simulation panel with Babylon.js</li>
-        <li>Robot controls and sensors</li>
-      </ul>
+    <div className="mainSimulator">
+      <nav className="topNav">
+        <div className="navTabs">
+          <button
+            className={activePanel === 'blocks' ? 'active' : ''}
+            onClick={() => setActivePanel('blocks')}
+            id="navBlocks">
+            Blocks
+          </button>
+          <button
+            className={activePanel === 'sim' ? 'active' : ''}
+            onClick={() => setActivePanel('sim')}
+            id="navSim">
+            Simulator
+          </button>
+        </div>
+        <div className="navActions">
+          <button className="fileMenu">File</button>
+          <button className="robotMenu">Robot</button>
+          <button className="worldsMenu">Worlds</button>
+          <button className="helpMenu">Help</button>
+        </div>
+      </nav>
+
+      <div className="panels">
+        {activePanel === 'blocks' && (
+          <div className="panel blocklyPanelContainer">
+            <div className="leftPanel">
+              <BlocklyPanel />
+            </div>
+            <div className="rightPanel">
+              <PythonPanel />
+            </div>
+          </div>
+        )}
+
+        {activePanel === 'sim' && (
+          <div className="panel simPanelContainer">
+            <div className="leftPanel">
+              <SimPanel />
+            </div>
+            <div className="rightPanel">
+              <PythonPanel />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
 export default MainSimulator
