@@ -54,8 +54,10 @@ export function ArduinoPanel() {
   }, []);
 
   useEffect(() => {
-    if (editor && generatedCode) {
-      editor.setValue(generatedCode, -1);
+    if (editor) {
+      const codeToDisplay = generatedCode || '// Drag Arduino blocks from the toolbox to generate code\n';
+      console.log('Setting Arduino code in editor:', codeToDisplay);
+      editor.setValue(codeToDisplay, -1);
     }
   }, [generatedCode, editor]);
 
