@@ -1,0 +1,327 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="Arduino Movement" colour="#5b67a5">
+    <block type="arduino_move_forward">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">1000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="arduino_move_backward">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">1000</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="arduino_turn_left">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="arduino_turn_right">
+      <value name="speed">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="arduino_stop_motors"></block>
+  </category>
+  
+  <category name="Arduino Sensors" colour="#5ba55b">
+    <block type="arduino_get_distance"></block>
+    <block type="arduino_follow_line">
+      <value name="threshold">
+        <shadow type="math_number">
+          <field name="NUM">500</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  
+  <category name="Arduino Servo" colour="#5ba5a5">
+    <block type="arduino_look_left"></block>
+    <block type="arduino_look_right"></block>
+    <block type="arduino_look_center"></block>
+  </category>
+  
+  <category name="Arduino Claw" colour="#a55b5b">
+    <block type="arduino_open_claw"></block>
+    <block type="arduino_close_claw"></block>
+  </category>
+  
+  <category name="Arduino Sound" colour="#a55ba5">
+    <block type="arduino_beep">
+      <value name="frequency">
+        <shadow type="math_number">
+          <field name="NUM">1000</field>
+        </shadow>
+      </value>
+      <value name="duration">
+        <shadow type="math_number">
+          <field name="NUM">200</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  
+  <category name="Arduino LED" colour="#5b5ba5">
+    <block type="arduino_light_rgb">
+      <value name="red">
+        <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+      <value name="green">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="blue">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="arduino_light_off"></block>
+  </category>
+  
+  <category name="Loops" colour="#5ba58c">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil">
+      <field name="MODE">WHILE</field>
+    </block>
+    <block type="controls_for">
+      <field name="VAR">i</field>
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_flow_statements">
+      <field name="FLOW">BREAK</field>
+    </block>
+  </category>
+  
+  <category name="Logic" colour="#5b80a5">
+    <block type="controls_if"></block>
+    <block type="controls_if">
+      <mutation else="1"></mutation>
+    </block>
+    <block type="logic_compare">
+      <field name="OP">EQ</field>
+    </block>
+    <block type="logic_operation">
+      <field name="OP">AND</field>
+    </block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean">
+      <field name="BOOL">TRUE</field>
+    </block>
+  </category>
+  
+  <category name="Math" colour="#5b67a5">
+    <block type="math_number">
+      <field name="NUM">0</field>
+    </block>
+    <block type="math_arithmetic">
+      <field name="OP">ADD</field>
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_single">
+      <field name="OP">ROOT</field>
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <field name="OP">SIN</field>
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant">
+      <field name="CONSTANT">PI</field>
+    </block>
+    <block type="math_round">
+      <field name="OP">ROUND</field>
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_int">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  
+  <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
+  
+  <category name="Functions" colour="#9a5ba5" custom="PROCEDURE"></category>
+  
+  <category name="Text" colour="#5ba55b">
+    <block type="text">
+      <field name="TEXT"></field>
+    </block>
+    <block type="text_join"></block>
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">Hello</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  
+  <category name="Data Plotting" colour="#ff6b35">
+    <block type="plotter_init"></block>
+    <block type="plotter_showHide"></block>
+    <block type="plotter_clear"></block>
+    <block type="plotter_drawGrid"></block>
+    <block type="plotter_setColor"></block>
+    <block type="plotter_setPointSize">
+      <value name="size">
+        <shadow type="math_number">
+          <field name="NUM">2</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="plotter_drawPoint">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="plotter_drawLine">
+      <value name="x1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y1">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="x2">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="y2">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="plotter_drawTriangle">
+      <value name="x">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="y">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="dir">
+        <shadow type="math_number">
+          <field name="NUM">90</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  
+  <category name="Delays" colour="#5b5ba5">
+    <block type="sleep">
+      <field name="units">SECONDS</field>
+      <value name="seconds">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+</xml>
