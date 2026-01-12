@@ -368,37 +368,49 @@ export function defineArduinoBlocks() {
 }
 
 export function defineArduinoGenerators() {
-  Blockly.Arduino = Blockly.Arduino || {};
+  if (!Blockly.Arduino) {
+    Blockly.Arduino = new Blockly.Generator('Arduino');
 
-  Blockly.Arduino.ORDER_ATOMIC = 0;
-  Blockly.Arduino.ORDER_MEMBER = 1;
-  Blockly.Arduino.ORDER_FUNCTION_CALL = 2;
-  Blockly.Arduino.ORDER_UNARY_POSTFIX = 3;
-  Blockly.Arduino.ORDER_UNARY_PREFIX = 4;
-  Blockly.Arduino.ORDER_MULTIPLICATIVE = 5;
-  Blockly.Arduino.ORDER_ADDITIVE = 6;
-  Blockly.Arduino.ORDER_SHIFT = 7;
-  Blockly.Arduino.ORDER_RELATIONAL = 8;
-  Blockly.Arduino.ORDER_EQUALITY = 9;
-  Blockly.Arduino.ORDER_BITWISE_AND = 10;
-  Blockly.Arduino.ORDER_BITWISE_XOR = 11;
-  Blockly.Arduino.ORDER_BITWISE_OR = 12;
-  Blockly.Arduino.ORDER_LOGICAL_AND = 13;
-  Blockly.Arduino.ORDER_LOGICAL_OR = 14;
-  Blockly.Arduino.ORDER_CONDITIONAL = 15;
-  Blockly.Arduino.ORDER_ASSIGNMENT = 16;
-  Blockly.Arduino.ORDER_NONE = 99;
+    Blockly.Arduino.ORDER_ATOMIC = 0;
+    Blockly.Arduino.ORDER_MEMBER = 1;
+    Blockly.Arduino.ORDER_FUNCTION_CALL = 2;
+    Blockly.Arduino.ORDER_UNARY_POSTFIX = 3;
+    Blockly.Arduino.ORDER_UNARY_PREFIX = 4;
+    Blockly.Arduino.ORDER_MULTIPLICATIVE = 5;
+    Blockly.Arduino.ORDER_ADDITIVE = 6;
+    Blockly.Arduino.ORDER_SHIFT = 7;
+    Blockly.Arduino.ORDER_RELATIONAL = 8;
+    Blockly.Arduino.ORDER_EQUALITY = 9;
+    Blockly.Arduino.ORDER_BITWISE_AND = 10;
+    Blockly.Arduino.ORDER_BITWISE_XOR = 11;
+    Blockly.Arduino.ORDER_BITWISE_OR = 12;
+    Blockly.Arduino.ORDER_LOGICAL_AND = 13;
+    Blockly.Arduino.ORDER_LOGICAL_OR = 14;
+    Blockly.Arduino.ORDER_CONDITIONAL = 15;
+    Blockly.Arduino.ORDER_ASSIGNMENT = 16;
+    Blockly.Arduino.ORDER_NONE = 99;
 
-  Blockly.Arduino.valueToCode = function(block, name, order) {
-    if (order === undefined) {
-      order = Blockly.Arduino.ORDER_NONE;
-    }
-    return Blockly.Generator.prototype.valueToCode.call(this, block, name, order);
-  };
+    Blockly.Arduino.init = function(workspace) {
+      this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
+    };
 
-  Blockly.Arduino.blockToCode = function(block) {
-    return Blockly.Generator.prototype.blockToCode.call(this, block);
-  };
+    Blockly.Arduino.finish = function(code) {
+      return code;
+    };
+
+    Blockly.Arduino.scrubNakedValue = function(line) {
+      return line + ';\n';
+    };
+
+    Blockly.Arduino.scrub_ = function(block, code, opt_thisOnly) {
+      const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+      let nextCode = '';
+      if (nextBlock && !opt_thisOnly) {
+        nextCode = Blockly.Arduino.blockToCode(nextBlock);
+      }
+      return code + nextCode;
+    };
+  }
 
   Blockly.Arduino['arduino_move_forward'] = function(block) {
     const speed = Blockly.Arduino.valueToCode(block, 'speed', Blockly.Arduino.ORDER_ATOMIC) || '255';

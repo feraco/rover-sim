@@ -24,15 +24,21 @@ export class BabylonManager {
     this.scene.clearColor = new BABYLON.Color4(0.9, 0.9, 0.9, 1);
     console.log('BabylonManager: Scene created');
 
-    console.log('BabylonManager: Loading physics engine...');
-    await this.loadPhysicsEngine();
-    console.log('BabylonManager: Physics engine loaded');
+    try {
+      console.log('BabylonManager: Loading physics engine...');
+      await this.loadPhysicsEngine();
+      console.log('BabylonManager: Physics engine loaded');
 
-    this.scene.enablePhysics(
-      new BABYLON.Vector3(0, -98.1, 0),
-      new BABYLON.AmmoJSPlugin()
-    );
-    console.log('BabylonManager: Physics enabled');
+      this.scene.enablePhysics(
+        new BABYLON.Vector3(0, -98.1, 0),
+        new BABYLON.AmmoJSPlugin()
+      );
+      console.log('BabylonManager: Physics enabled');
+      this.physicsEnabled = true;
+    } catch (error) {
+      console.warn('BabylonManager: Physics engine failed to load, continuing without physics:', error);
+      this.physicsEnabled = false;
+    }
 
     this.setupCamera();
     this.setupLighting();
@@ -129,12 +135,14 @@ export class BabylonManager {
     ground.material = groundMat;
     ground.receiveShadows = true;
 
-    ground.physicsImpostor = new BABYLON.PhysicsImpostor(
-      ground,
-      BABYLON.PhysicsImpostor.BoxImpostor,
-      { mass: 0, restitution: 0.3, friction: 0.8 },
-      this.scene
-    );
+    if (this.physicsEnabled) {
+      ground.physicsImpostor = new BABYLON.PhysicsImpostor(
+        ground,
+        BABYLON.PhysicsImpostor.BoxImpostor,
+        { mass: 0, restitution: 0.3, friction: 0.8 },
+        this.scene
+      );
+    }
 
     const testBox = BABYLON.MeshBuilder.CreateBox('testBox', {
       size: 10
@@ -145,12 +153,14 @@ export class BabylonManager {
     boxMat.diffuseColor = new BABYLON.Color3(0.8, 0.2, 0.2);
     testBox.material = boxMat;
 
-    testBox.physicsImpostor = new BABYLON.PhysicsImpostor(
-      testBox,
-      BABYLON.PhysicsImpostor.BoxImpostor,
-      { mass: 1, restitution: 0.5, friction: 0.5 },
-      this.scene
-    );
+    if (this.physicsEnabled) {
+      testBox.physicsImpostor = new BABYLON.PhysicsImpostor(
+        testBox,
+        BABYLON.PhysicsImpostor.BoxImpostor,
+        { mass: 1, restitution: 0.5, friction: 0.5 },
+        this.scene
+      );
+    }
 
     this.shadowGenerator.addShadowCaster(testBox);
   }
