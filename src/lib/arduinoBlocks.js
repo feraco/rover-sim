@@ -367,122 +367,129 @@ export function defineArduinoBlocks() {
   };
 }
 
-export function defineArduinoGenerators() {
-  if (!Blockly.Arduino) {
-    Blockly.Arduino = new Blockly.Generator('Arduino');
+let arduinoGenerator = null;
 
-    Blockly.Arduino.ORDER_ATOMIC = 0;
-    Blockly.Arduino.ORDER_MEMBER = 1;
-    Blockly.Arduino.ORDER_FUNCTION_CALL = 2;
-    Blockly.Arduino.ORDER_UNARY_POSTFIX = 3;
-    Blockly.Arduino.ORDER_UNARY_PREFIX = 4;
-    Blockly.Arduino.ORDER_MULTIPLICATIVE = 5;
-    Blockly.Arduino.ORDER_ADDITIVE = 6;
-    Blockly.Arduino.ORDER_SHIFT = 7;
-    Blockly.Arduino.ORDER_RELATIONAL = 8;
-    Blockly.Arduino.ORDER_EQUALITY = 9;
-    Blockly.Arduino.ORDER_BITWISE_AND = 10;
-    Blockly.Arduino.ORDER_BITWISE_XOR = 11;
-    Blockly.Arduino.ORDER_BITWISE_OR = 12;
-    Blockly.Arduino.ORDER_LOGICAL_AND = 13;
-    Blockly.Arduino.ORDER_LOGICAL_OR = 14;
-    Blockly.Arduino.ORDER_CONDITIONAL = 15;
-    Blockly.Arduino.ORDER_ASSIGNMENT = 16;
-    Blockly.Arduino.ORDER_NONE = 99;
+export function getArduinoGenerator() {
+  if (!arduinoGenerator) {
+    arduinoGenerator = new Blockly.Generator('Arduino');
 
-    Blockly.Arduino.init = function(workspace) {
+    arduinoGenerator.ORDER_ATOMIC = 0;
+    arduinoGenerator.ORDER_MEMBER = 1;
+    arduinoGenerator.ORDER_FUNCTION_CALL = 2;
+    arduinoGenerator.ORDER_UNARY_POSTFIX = 3;
+    arduinoGenerator.ORDER_UNARY_PREFIX = 4;
+    arduinoGenerator.ORDER_MULTIPLICATIVE = 5;
+    arduinoGenerator.ORDER_ADDITIVE = 6;
+    arduinoGenerator.ORDER_SHIFT = 7;
+    arduinoGenerator.ORDER_RELATIONAL = 8;
+    arduinoGenerator.ORDER_EQUALITY = 9;
+    arduinoGenerator.ORDER_BITWISE_AND = 10;
+    arduinoGenerator.ORDER_BITWISE_XOR = 11;
+    arduinoGenerator.ORDER_BITWISE_OR = 12;
+    arduinoGenerator.ORDER_LOGICAL_AND = 13;
+    arduinoGenerator.ORDER_LOGICAL_OR = 14;
+    arduinoGenerator.ORDER_CONDITIONAL = 15;
+    arduinoGenerator.ORDER_ASSIGNMENT = 16;
+    arduinoGenerator.ORDER_NONE = 99;
+
+    arduinoGenerator.init = function(workspace) {
       this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
     };
 
-    Blockly.Arduino.finish = function(code) {
+    arduinoGenerator.finish = function(code) {
       return code;
     };
 
-    Blockly.Arduino.scrubNakedValue = function(line) {
+    arduinoGenerator.scrubNakedValue = function(line) {
       return line + ';\n';
     };
 
-    Blockly.Arduino.scrub_ = function(block, code, opt_thisOnly) {
+    arduinoGenerator.scrub_ = function(block, code, opt_thisOnly) {
       const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
       let nextCode = '';
       if (nextBlock && !opt_thisOnly) {
-        nextCode = Blockly.Arduino.blockToCode(nextBlock);
+        nextCode = arduinoGenerator.blockToCode(nextBlock);
       }
       return code + nextCode;
     };
   }
+  return arduinoGenerator;
+}
 
-  Blockly.Arduino['arduino_move_forward'] = function(block) {
-    const speed = Blockly.Arduino.valueToCode(block, 'speed', Blockly.Arduino.ORDER_ATOMIC) || '255';
-    const duration = Blockly.Arduino.valueToCode(block, 'duration', Blockly.Arduino.ORDER_ATOMIC) || '1000';
+export function defineArduinoGenerators() {
+  const Arduino = getArduinoGenerator();
+
+  Arduino.forBlock['arduino_move_forward'] = function(block) {
+    const speed = Arduino.valueToCode(block, 'speed', Arduino.ORDER_ATOMIC) || '255';
+    const duration = Arduino.valueToCode(block, 'duration', Arduino.ORDER_ATOMIC) || '1000';
     return `moveForward(${speed}, ${duration});\n`;
   };
 
-  Blockly.Arduino['arduino_move_backward'] = function(block) {
-    const speed = Blockly.Arduino.valueToCode(block, 'speed', Blockly.Arduino.ORDER_ATOMIC) || '255';
-    const duration = Blockly.Arduino.valueToCode(block, 'duration', Blockly.Arduino.ORDER_ATOMIC) || '1000';
+  Arduino.forBlock['arduino_move_backward'] = function(block) {
+    const speed = Arduino.valueToCode(block, 'speed', Arduino.ORDER_ATOMIC) || '255';
+    const duration = Arduino.valueToCode(block, 'duration', Arduino.ORDER_ATOMIC) || '1000';
     return `moveBackward(${speed}, ${duration});\n`;
   };
 
-  Blockly.Arduino['arduino_turn_left'] = function(block) {
-    const speed = Blockly.Arduino.valueToCode(block, 'speed', Blockly.Arduino.ORDER_ATOMIC) || '200';
-    const duration = Blockly.Arduino.valueToCode(block, 'duration', Blockly.Arduino.ORDER_ATOMIC) || '500';
+  Arduino.forBlock['arduino_turn_left'] = function(block) {
+    const speed = Arduino.valueToCode(block, 'speed', Arduino.ORDER_ATOMIC) || '200';
+    const duration = Arduino.valueToCode(block, 'duration', Arduino.ORDER_ATOMIC) || '500';
     return `turnLeft(${speed}, ${duration});\n`;
   };
 
-  Blockly.Arduino['arduino_turn_right'] = function(block) {
-    const speed = Blockly.Arduino.valueToCode(block, 'speed', Blockly.Arduino.ORDER_ATOMIC) || '200';
-    const duration = Blockly.Arduino.valueToCode(block, 'duration', Blockly.Arduino.ORDER_ATOMIC) || '500';
+  Arduino.forBlock['arduino_turn_right'] = function(block) {
+    const speed = Arduino.valueToCode(block, 'speed', Arduino.ORDER_ATOMIC) || '200';
+    const duration = Arduino.valueToCode(block, 'duration', Arduino.ORDER_ATOMIC) || '500';
     return `turnRight(${speed}, ${duration});\n`;
   };
 
-  Blockly.Arduino['arduino_stop_motors'] = function(block) {
+  Arduino.forBlock['arduino_stop_motors'] = function(block) {
     return 'stopMotors();\n';
   };
 
-  Blockly.Arduino['arduino_get_distance'] = function(block) {
-    return ['getDistance()', Blockly.Arduino.ORDER_ATOMIC];
+  Arduino.forBlock['arduino_get_distance'] = function(block) {
+    return ['getDistance()', Arduino.ORDER_ATOMIC];
   };
 
-  Blockly.Arduino['arduino_follow_line'] = function(block) {
-    const threshold = Blockly.Arduino.valueToCode(block, 'threshold', Blockly.Arduino.ORDER_ATOMIC) || '500';
+  Arduino.forBlock['arduino_follow_line'] = function(block) {
+    const threshold = Arduino.valueToCode(block, 'threshold', Arduino.ORDER_ATOMIC) || '500';
     return `followLine(${threshold});\n`;
   };
 
-  Blockly.Arduino['arduino_look_left'] = function(block) {
+  Arduino.forBlock['arduino_look_left'] = function(block) {
     return 'lookLeft();\n';
   };
 
-  Blockly.Arduino['arduino_look_right'] = function(block) {
+  Arduino.forBlock['arduino_look_right'] = function(block) {
     return 'lookRight();\n';
   };
 
-  Blockly.Arduino['arduino_look_center'] = function(block) {
+  Arduino.forBlock['arduino_look_center'] = function(block) {
     return 'lookCenter();\n';
   };
 
-  Blockly.Arduino['arduino_open_claw'] = function(block) {
+  Arduino.forBlock['arduino_open_claw'] = function(block) {
     return 'openClaw();\n';
   };
 
-  Blockly.Arduino['arduino_close_claw'] = function(block) {
+  Arduino.forBlock['arduino_close_claw'] = function(block) {
     return 'closeClaw();\n';
   };
 
-  Blockly.Arduino['arduino_beep'] = function(block) {
-    const frequency = Blockly.Arduino.valueToCode(block, 'frequency', Blockly.Arduino.ORDER_ATOMIC) || '1000';
-    const duration = Blockly.Arduino.valueToCode(block, 'duration', Blockly.Arduino.ORDER_ATOMIC) || '200';
+  Arduino.forBlock['arduino_beep'] = function(block) {
+    const frequency = Arduino.valueToCode(block, 'frequency', Arduino.ORDER_ATOMIC) || '1000';
+    const duration = Arduino.valueToCode(block, 'duration', Arduino.ORDER_ATOMIC) || '200';
     return `tone(BUZZER_PIN, ${frequency}, ${duration});\n`;
   };
 
-  Blockly.Arduino['arduino_light_rgb'] = function(block) {
-    const red = Blockly.Arduino.valueToCode(block, 'red', Blockly.Arduino.ORDER_ATOMIC) || '0';
-    const green = Blockly.Arduino.valueToCode(block, 'green', Blockly.Arduino.ORDER_ATOMIC) || '0';
-    const blue = Blockly.Arduino.valueToCode(block, 'blue', Blockly.Arduino.ORDER_ATOMIC) || '0';
+  Arduino.forBlock['arduino_light_rgb'] = function(block) {
+    const red = Arduino.valueToCode(block, 'red', Arduino.ORDER_ATOMIC) || '0';
+    const green = Arduino.valueToCode(block, 'green', Arduino.ORDER_ATOMIC) || '0';
+    const blue = Arduino.valueToCode(block, 'blue', Arduino.ORDER_ATOMIC) || '0';
     return `setRGB(${red}, ${green}, ${blue});\n`;
   };
 
-  Blockly.Arduino['arduino_light_off'] = function(block) {
+  Arduino.forBlock['arduino_light_off'] = function(block) {
     return 'setRGB(0, 0, 0);\n';
   };
 

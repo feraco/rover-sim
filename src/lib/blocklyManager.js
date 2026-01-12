@@ -1,11 +1,13 @@
 import * as Blockly from 'blockly';
-import { defineArduinoBlocks, defineArduinoGenerators } from './arduinoBlocks';
+import { defineArduinoBlocks, defineArduinoGenerators, getArduinoGenerator } from './arduinoBlocks';
 
 export class BlocklyManager {
   constructor() {
     this.workspace = null;
     this.generator = 'arduino';
     this.toolbox = null;
+    this.arduinoGenerator = null;
+    this.pythonGenerator = null;
   }
 
   async init(container, toolbox) {
@@ -13,6 +15,7 @@ export class BlocklyManager {
 
     defineArduinoBlocks();
     defineArduinoGenerators();
+    this.arduinoGenerator = getArduinoGenerator();
 
     this.workspace = Blockly.inject(container, {
       toolbox: toolbox,
@@ -41,7 +44,7 @@ export class BlocklyManager {
 
   async loadGenerators() {
     const python = await import('blockly/python');
-    Blockly.Python = python.pythonGenerator;
+    this.pythonGenerator = python.pythonGenerator;
   }
 
   setGenerator(generator) {
@@ -55,7 +58,7 @@ export class BlocklyManager {
 
     try {
       if (this.generator === 'python') {
-        return Blockly.Python.workspaceToCode(this.workspace);
+        return this.pythonGenerator ? this.pythonGenerator.workspaceToCode(this.workspace) : '';
       } else if (this.generator === 'arduino') {
         return this.generateArduinoCode();
       }
@@ -66,7 +69,7 @@ export class BlocklyManager {
   }
 
   generateArduinoCode() {
-    if (!this.workspace || !Blockly.Arduino) {
+    if (!this.workspace || !this.arduinoGenerator) {
       return '// Arduino generator not loaded\n';
     }
 
@@ -86,7 +89,7 @@ export class BlocklyManager {
 
     blocks.forEach(block => {
       if (!block.getSurroundParent()) {
-        const blockCode = Blockly.Arduino.blockToCode(block);
+        const blockCode = this.arduinoGenerator.blockToCode(block);
         if (blockCode) {
           code += '  ' + blockCode;
         }

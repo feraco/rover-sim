@@ -4,12 +4,27 @@ import App from './App.jsx'
 import './styles/main.scss'
 
 console.log('main.jsx loading...');
-console.log('Root element:', document.getElementById('root'));
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const rootElement = document.getElementById('root');
+console.log('Root element:', rootElement);
 
-console.log('React app mounted!');
+if (!rootElement) {
+  console.error('Root element not found!');
+  document.body.innerHTML = '<div style="padding: 20px; color: red;">Error: Root element not found!</div>';
+} else {
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    console.log('Root created, rendering App...');
+
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+
+    console.log('React app rendered!');
+  } catch (error) {
+    console.error('Error mounting React:', error);
+    document.body.innerHTML = `<div style="padding: 20px; color: red;">Error mounting app: ${error.message}</div>`;
+  }
+}
