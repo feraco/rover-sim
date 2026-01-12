@@ -143,26 +143,6 @@ export class BabylonManager {
         this.scene
       );
     }
-
-    const testBox = BABYLON.MeshBuilder.CreateBox('testBox', {
-      size: 10
-    }, this.scene);
-    testBox.position.y = 20;
-
-    const boxMat = new BABYLON.StandardMaterial('boxMat', this.scene);
-    boxMat.diffuseColor = new BABYLON.Color3(0.8, 0.2, 0.2);
-    testBox.material = boxMat;
-
-    if (this.physicsEnabled) {
-      testBox.physicsImpostor = new BABYLON.PhysicsImpostor(
-        testBox,
-        BABYLON.PhysicsImpostor.BoxImpostor,
-        { mass: 1, restitution: 0.5, friction: 0.5 },
-        this.scene
-      );
-    }
-
-    this.shadowGenerator.addShadowCaster(testBox);
   }
 
   setCameraMode(mode, target) {
