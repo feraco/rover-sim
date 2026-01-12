@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useBabylon } from '../hooks/useBabylon';
 import { useSimulation } from '../hooks/useSimulation';
 import { useUIStore } from '../store/uiStore';
@@ -9,49 +9,113 @@ export function SimPanel() {
   const { cameraMode, showSensors, showRuler, setCameraMode } = useUIStore();
 
   useEffect(() => {
+    console.log('SimPanel mounted');
     if (babylonManager && isReady) {
       babylonManager.setCameraMode(cameraMode);
     }
   }, [cameraMode, babylonManager, isReady]);
 
   return (
-    <div className="simPanel">
-      <div className="simControls">
-        <button onClick={reset} disabled={isRunning} className="btn-reset">
-          <span className="icon-reset"></span>
+    <div className="simPanel" style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#1e1e1e',
+      position: 'relative'
+    }}>
+      <div className="simControls" style={{
+        padding: '10px',
+        backgroundColor: '#2d2d2d',
+        borderBottom: '1px solid #444',
+        display: 'flex',
+        gap: '10px',
+        alignItems: 'center'
+      }}>
+        <button onClick={reset} disabled={isRunning} style={{
+          padding: '6px 12px',
+          backgroundColor: isRunning ? '#666' : '#f80',
+          color: '#fff',
+          border: 'none',
+          cursor: isRunning ? 'not-allowed' : 'pointer',
+          borderRadius: '4px',
+          fontWeight: 'bold'
+        }}>
+          ↻ Reset
         </button>
-        <button onClick={stop} disabled={!isRunning} className="btn-stop">
-          <span className="icon-stop"></span>
+        <button onClick={stop} disabled={!isRunning} style={{
+          padding: '6px 12px',
+          backgroundColor: !isRunning ? '#666' : '#c00',
+          color: '#fff',
+          border: 'none',
+          cursor: !isRunning ? 'not-allowed' : 'pointer',
+          borderRadius: '4px',
+          fontWeight: 'bold'
+        }}>
+          ■ Stop
         </button>
-        <div className="cameraControls">
+        <div className="cameraControls" style={{ display: 'flex', gap: '5px', marginLeft: 'auto' }}>
           <button
             onClick={() => setCameraMode('follow')}
-            className={cameraMode === 'follow' ? 'active' : ''}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: cameraMode === 'follow' ? '#0066cc' : '#444',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}
             title="Follow Camera">
-            <span className="icon-cameraFollow"></span>
+            Follow
           </button>
           <button
             onClick={() => setCameraMode('top')}
-            className={cameraMode === 'top' ? 'active' : ''}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: cameraMode === 'top' ? '#0066cc' : '#444',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}
             title="Top View">
-            <span className="icon-cameraTop"></span>
+            Top
           </button>
           <button
             onClick={() => setCameraMode('arc')}
-            className={cameraMode === 'arc' ? 'active' : ''}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: cameraMode === 'arc' ? '#0066cc' : '#444',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}
             title="Arc Camera">
-            <span className="icon-cameraArc"></span>
+            Arc
           </button>
         </div>
       </div>
       <canvas
         ref={canvasRef}
         className="babylonCanvas"
-        style={{ width: '100%', height: '100%' }}
+        style={{
+          flex: 1,
+          width: '100%',
+          backgroundColor: '#999'
+        }}
       />
       {!isReady && (
-        <div className="loadingOverlay">
-          <div className="loadingSpinner">Loading 3D Engine...</div>
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: '#fff',
+          fontSize: '16px',
+          textAlign: 'center'
+        }}>
+          <div>Loading 3D Engine...</div>
         </div>
       )}
     </div>

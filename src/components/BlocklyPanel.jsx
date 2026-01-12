@@ -6,15 +6,25 @@ import { loadToolbox } from '../utils/configLoader';
 
 export function BlocklyPanel() {
   const [toolbox, setToolbox] = useState(null);
+  const [error, setError] = useState(null);
   const { containerRef, blocklyManager, isReady, resize } = useBlockly(toolbox);
   const { generatedCode } = useBlocklyStore();
   const { generator, setGenerator } = useUIStore();
 
   useEffect(() => {
+    console.log('BlocklyPanel mounted');
     const loadToolboxData = async () => {
-      const toolboxXml = await loadToolbox();
-      if (toolboxXml) {
-        setToolbox(toolboxXml);
+      try {
+        const toolboxXml = await loadToolbox();
+        if (toolboxXml) {
+          setToolbox(toolboxXml);
+          console.log('Toolbox loaded successfully');
+        } else {
+          console.warn('Toolbox is null');
+        }
+      } catch (err) {
+        console.error('Error loading toolbox:', err);
+        setError(err);
       }
     };
     loadToolboxData();
@@ -33,18 +43,54 @@ export function BlocklyPanel() {
     }
   };
 
+  if (error) {
+    return (
+      <div style={{ padding: '20px', color: '#ff4444' }}>
+        <h3>Blockly Load Error</h3>
+        <pre style={{ fontSize: '12px' }}>{error.toString()}</pre>
+      </div>
+    );
+  }
+
   return (
-    <div className="blocklyPanel">
-      <div className="blocklyControls">
-        <div className="generatorToggle">
+    <div className="blocklyPanel" style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#1e1e1e',
+      position: 'relative'
+    }}>
+      <div className="blocklyControls" style={{
+        padding: '10px',
+        backgroundColor: '#2d2d2d',
+        borderBottom: '1px solid #444',
+        display: 'flex',
+        gap: '10px'
+      }}>
+        <div className="generatorToggle" style={{ display: 'flex', gap: '5px' }}>
           <button
-            className={generator === 'python' ? 'active' : ''}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: generator === 'python' ? '#0066cc' : '#444',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}
             onClick={() => handleGeneratorChange('python')}
             id="pythonMode">
             Python
           </button>
           <button
-            className={generator === 'arduino' ? 'active' : ''}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: generator === 'arduino' ? '#0066cc' : '#444',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}
             onClick={() => handleGeneratorChange('arduino')}
             id="arduinoMode">
             Arduino
@@ -54,11 +100,19 @@ export function BlocklyPanel() {
       <div
         ref={containerRef}
         className="blocklyDiv"
-        style={{ width: '100%', height: '100%' }}
+        style={{ flex: 1, width: '100%', backgroundColor: '#fff' }}
       />
-      {!isReady && (
-        <div className="loadingOverlay">
-          <div className="loadingSpinner">Loading Blockly...</div>
+      {!isReady && !error && (
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: '#fff',
+          fontSize: '16px',
+          textAlign: 'center'
+        }}>
+          <div>Loading Blockly...</div>
         </div>
       )}
     </div>

@@ -2,57 +2,76 @@ import { useEffect, useRef, useState } from 'react';
 import { useSimulation } from '../hooks/useSimulation';
 import { useBlocklyStore } from '../store/blocklyStore';
 import { filesManager } from '../utils/filesManager';
-import ace from 'ace-builds';
-import 'ace-builds/src-noconflict/mode-python';
-import 'ace-builds/src-noconflict/mode-c_cpp';
-import 'ace-builds/src-noconflict/theme-monokai';
 
 export function PythonPanel() {
   const editorRef = useRef(null);
   const [editor, setEditor] = useState(null);
   const [files, setFiles] = useState({});
   const [currentFile, setCurrentFile] = useState('main.py');
+  const [error, setError] = useState(null);
   const { runPython, stop, isRunning, output } = useSimulation();
   const { generatedCode } = useBlocklyStore();
 
   useEffect(() => {
-    if (!editorRef.current) return;
-
-    const aceEditor = ace.edit(editorRef.current);
-    aceEditor.setTheme('ace/theme/monokai');
-    aceEditor.session.setMode('ace/mode/python');
-    aceEditor.setOptions({
-      fontSize: '14px',
-      showPrintMargin: false,
-      enableBasicAutocompletion: true,
-      enableLiveAutocompletion: true
-    });
-
-    aceEditor.session.on('change', () => {
-      filesManager.updateCurrentFile(aceEditor.getValue());
-    });
-
-    setEditor(aceEditor);
+    console.log('PythonPanel mounted');
 
     filesManager.loadLocalStorage();
     setFiles(filesManager.getFiles());
     setCurrentFile(filesManager.getCurrentFilename());
-    aceEditor.setValue(filesManager.getCurrentContent(), -1);
 
-    filesManager.onFileChange(() => {
-      setFiles(filesManager.getFiles());
-      setCurrentFile(filesManager.getCurrentFilename());
-      aceEditor.setValue(filesManager.getCurrentContent(), -1);
-    });
+    if (!editorRef.current) return;
 
-    const interval = setInterval(() => {
-      filesManager.saveLocalStorage();
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-      aceEditor.destroy();
+    const loadAce = async () => {
+      try {
+        const ace = await import('ace-builds');
+        await import('ace-builds/src-noconflict/mode-python');
+        await import('ace-builds/src-noconflict/theme-monokai');
+        return ace.default || ace;
+      } catch (err) {
+        console.error('Failed to load Ace:', err);
+        setError(err);
+        return null;
+      }
     };
+
+    const initEditor = async () => {
+      const ace = await loadAce();
+      if (!ace || !editorRef.current) return;
+
+      const aceEditor = ace.edit(editorRef.current);
+      aceEditor.setTheme('ace/theme/monokai');
+      aceEditor.session.setMode('ace/mode/python');
+      aceEditor.setOptions({
+        fontSize: '14px',
+        showPrintMargin: false,
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true
+      });
+
+      aceEditor.session.on('change', () => {
+        filesManager.updateCurrentFile(aceEditor.getValue());
+      });
+
+      aceEditor.setValue(filesManager.getCurrentContent(), -1);
+      setEditor(aceEditor);
+
+      filesManager.onFileChange(() => {
+        setFiles(filesManager.getFiles());
+        setCurrentFile(filesManager.getCurrentFilename());
+        aceEditor.setValue(filesManager.getCurrentContent(), -1);
+      });
+
+      const interval = setInterval(() => {
+        filesManager.saveLocalStorage();
+      }, 2000);
+
+      return () => {
+        clearInterval(interval);
+        aceEditor.destroy();
+      };
+    };
+
+    initEditor();
   }, []);
 
   useEffect(() => {
@@ -83,35 +102,115 @@ export function PythonPanel() {
     }
   };
 
+  if (error) {
+    return (
+      <div style={{ padding: '20px', color: '#ff4444' }}>
+        <h3>Editor Load Error</h3>
+        <pre style={{ fontSize: '12px' }}>{error.toString()}</pre>
+      </div>
+    );
+  }
+
   return (
-    <div className="pythonPanel">
-      <div className="pythonControls">
-        <div className="filesTabs">
+    <div className="pythonPanel" style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#1e1e1e'
+    }}>
+      <div className="pythonControls" style={{
+        padding: '10px',
+        backgroundColor: '#2d2d2d',
+        borderBottom: '1px solid #444',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <div className="filesTabs" style={{ display: 'flex', gap: '5px', flex: 1 }}>
           {Object.keys(files).map((filename) => (
             <button
               key={filename}
-              className={currentFile === filename ? 'active' : ''}
+              style={{
+                padding: '6px 12px',
+                backgroundColor: currentFile === filename ? '#0066cc' : '#444',
+                color: '#fff',
+                border: 'none',
+                cursor: 'pointer',
+                borderRadius: '4px',
+                fontSize: '12px'
+              }}
               onClick={() => handleFileSelect(filename)}>
               {filename}
             </button>
           ))}
-          <button onClick={handleAddFile} className="addFileBtn">
-            <span className="icon-newFile"></span>
+          <button onClick={handleAddFile} style={{
+            padding: '6px 12px',
+            backgroundColor: '#444',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '4px'
+          }}>
+            + New File
           </button>
         </div>
-        <div className="runControls">
-          <button onClick={handleRun} disabled={isRunning} className="btn-play">
-            <span className="icon-play"></span> Run
+        <div className="runControls" style={{ display: 'flex', gap: '5px' }}>
+          <button onClick={handleRun} disabled={isRunning} style={{
+            padding: '6px 16px',
+            backgroundColor: isRunning ? '#666' : '#0a0',
+            color: '#fff',
+            border: 'none',
+            cursor: isRunning ? 'not-allowed' : 'pointer',
+            borderRadius: '4px',
+            fontWeight: 'bold'
+          }}>
+            ▶ Run
           </button>
-          <button onClick={stop} disabled={!isRunning} className="btn-stop">
-            <span className="icon-stop"></span> Stop
+          <button onClick={stop} disabled={!isRunning} style={{
+            padding: '6px 16px',
+            backgroundColor: !isRunning ? '#666' : '#c00',
+            color: '#fff',
+            border: 'none',
+            cursor: !isRunning ? 'not-allowed' : 'pointer',
+            borderRadius: '4px',
+            fontWeight: 'bold'
+          }}>
+            ■ Stop
           </button>
         </div>
       </div>
-      <div ref={editorRef} className="aceEditor" style={{ width: '100%', height: '60%' }} />
-      <div className="consoleOutput">
-        <div className="consoleHeader">Console Output</div>
-        <pre className="consoleContent">{output || 'Ready to run...'}</pre>
+      <div ref={editorRef} className="aceEditor" style={{
+        width: '100%',
+        height: '60%',
+        backgroundColor: '#2b2b2b',
+        position: 'relative'
+      }} />
+      <div className="consoleOutput" style={{
+        height: '40%',
+        backgroundColor: '#1e1e1e',
+        borderTop: '1px solid #444',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <div className="consoleHeader" style={{
+          padding: '8px 10px',
+          backgroundColor: '#2d2d2d',
+          color: '#fff',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          borderBottom: '1px solid #444'
+        }}>Console Output</div>
+        <pre className="consoleContent" style={{
+          flex: 1,
+          padding: '10px',
+          margin: 0,
+          color: '#0f0',
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          overflow: 'auto',
+          whiteSpace: 'pre-wrap'
+        }}>{output || 'Ready to run...'}</pre>
       </div>
     </div>
   );
