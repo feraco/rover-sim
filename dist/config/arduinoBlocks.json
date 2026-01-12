@@ -1,0 +1,280 @@
+[
+  {
+    "type": "arduino_follow_line",
+    "message0": "follow line with threshold %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "threshold",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Follow a line using the line sensors",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_look_left",
+    "message0": "look left",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Turn ultrasonic sensor to look left",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_look_right",
+    "message0": "look right",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Turn ultrasonic sensor to look right",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_look_center",
+    "message0": "look center",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 260,
+    "tooltip": "Center the ultrasonic sensor",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_open_claw",
+    "message0": "open claw",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 290,
+    "tooltip": "Open the robot claw",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_close_claw",
+    "message0": "close claw",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 290,
+    "tooltip": "Close the robot claw",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_beep",
+    "message0": "beep pattern %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "pattern",
+        "options": [
+          ["single", "1"],
+          ["double", "2"]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 160,
+    "tooltip": "Play a beep pattern",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_play_star_wars",
+    "message0": "play Star Wars theme",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 160,
+    "tooltip": "Play the Star Wars theme song",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_light_rgb",
+    "message0": "light RGB LED red %1 green %2 blue %3 for %4 ms",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "red",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "green",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "blue",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "duration",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 120,
+    "tooltip": "Light the RGB LED with specified colors for a duration",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_battery_level",
+    "message0": "battery level",
+    "output": "Number",
+    "colour": 190,
+    "tooltip": "Get the battery level percentage",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_line_sensor_left",
+    "message0": "left line sensor value",
+    "output": "Number",
+    "colour": 190,
+    "tooltip": "Read the left line sensor value",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_line_sensor_middle",
+    "message0": "middle line sensor value",
+    "output": "Number",
+    "colour": 190,
+    "tooltip": "Read the middle line sensor value",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_line_sensor_right",
+    "message0": "right line sensor value",
+    "output": "Number",
+    "colour": 190,
+    "tooltip": "Read the right line sensor value",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_get_distance",
+    "message0": "distance to obstacle",
+    "output": "Number",
+    "colour": 190,
+    "tooltip": "Get distance to nearest obstacle in cm",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_move_forward",
+    "message0": "move forward %1 speed %2 for %3 ms",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_value",
+        "name": "speed",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "duration",
+        "check": "Number"
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Move the robot forward",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_move_backward",
+    "message0": "move backward %1 speed %2 for %3 ms",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_value",
+        "name": "speed",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "duration",
+        "check": "Number"
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Move the robot backward",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_turn_left",
+    "message0": "turn left %1 speed %2 for %3 ms",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_value",
+        "name": "speed",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "duration",
+        "check": "Number"
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Turn the robot left",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_turn_right",
+    "message0": "turn right %1 speed %2 for %3 ms",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_value",
+        "name": "speed",
+        "check": "Number"
+      },
+      {
+        "type": "input_value",
+        "name": "duration",
+        "check": "Number"
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Turn the robot right",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_stop",
+    "message0": "stop",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Stop all motors",
+    "helpUrl": ""
+  },
+  {
+    "type": "arduino_stop_motors",
+    "message0": "stop motors",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "Stop all motors",
+    "helpUrl": ""
+  }
+]

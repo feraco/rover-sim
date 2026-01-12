@@ -1,0 +1,3157 @@
+@charset "UTF-8";
+.blocklyEditor {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+.blocklyEditor .disable {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blocklyEditor .disable .enable {
+  font-size: 200%;
+  color: white;
+  background: rgba(255, 59, 48, 0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid rgba(255, 59, 48, 0.5);
+  padding: 0.7em 1.2em;
+  border-radius: 0.8em;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  box-shadow: 0 16px 40px rgba(255, 59, 48, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.blocklyEditor .disable .enable:hover {
+  background: rgba(255, 59, 48, 0.4);
+  border-color: rgba(255, 59, 48, 0.6);
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(255, 59, 48, 0.4);
+}
+.blocklyEditor #blocklyPages {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.5em 0.8em;
+  color: rgba(255, 255, 255, 0.9);
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.blocklyEditor #blocklyPages:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: white;
+}
+.blocklyEditor #blocklyPages ul.menuDropDown {
+  right: 0;
+  left: auto;
+  width: max-content;
+}
+
+.blocklyEditor.hide {
+  display: none;
+}
+
+.blockly-minimap {
+  position: absolute;
+  box-shadow: none;
+  width: 200px;
+  height: 150px;
+  top: 3em;
+  right: 1em;
+}
+
+#renderCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.runSim {
+  position: absolute;
+  color: white;
+  top: 2em;
+  left: 2em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.runSim:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.runSim:active {
+  transform: translateY(0);
+}
+
+.startSim {
+  position: absolute;
+  color: white;
+  top: 2em;
+  left: 1.5em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(76, 217, 100, 0.2);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(76, 217, 100, 0.4);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.startSim:hover {
+  background: rgba(76, 217, 100, 0.3);
+  border-color: rgba(76, 217, 100, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(76, 217, 100, 0.3);
+}
+.startSim:active {
+  transform: translateY(0) scale(1);
+}
+
+.stopSim {
+  position: absolute;
+  color: white;
+  top: 2em;
+  left: 2.5em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255, 59, 48, 0.2);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 59, 48, 0.4);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.stopSim:hover {
+  background: rgba(255, 59, 48, 0.3);
+  border-color: rgba(255, 59, 48, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(255, 59, 48, 0.3);
+}
+.stopSim:active {
+  transform: translateY(0) scale(1);
+}
+
+.world {
+  position: absolute;
+  color: white;
+  top: 2em;
+  left: 4em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.world:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.world:active {
+  transform: translateY(0);
+}
+
+.reset {
+  position: absolute;
+  color: white;
+  top: 2em;
+  left: 6em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.4em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.reset:active {
+  transform: translateY(0);
+}
+
+.cameraSelector, .cameraSelectorShort {
+  position: absolute;
+  overflow: hidden;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 1em;
+  right: 1.5em;
+  height: 6.2em;
+  font-size: 300%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.cameraSelector > div, .cameraSelectorShort > div {
+  margin: 0.2em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cameraSelector > div:hover, .cameraSelectorShort > div:hover {
+  transform: scale(1.1);
+}
+.cameraSelector .hide, .cameraSelectorShort .hide {
+  display: none;
+}
+.cameraSelector:hover, .cameraSelectorShort:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cameraSelectorShort {
+  height: 3.5em;
+}
+
+.cameraSelector.closed, .cameraSelectorShort.closed {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  height: 1.3em !important;
+}
+
+.ruler {
+  position: absolute;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em 0.6em;
+  top: 4em;
+  left: 2em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  width: 13em;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.ruler .icon {
+  margin-right: 0.5em;
+  font-size: 120%;
+}
+.ruler .row1, .ruler .row2 {
+  font-size: 50%;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.ruler .measurements {
+  font-size: 50%;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+.ruler .measurements table {
+  width: 100%;
+}
+.ruler .measurements td {
+  width: 33%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.ruler:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ruler.closed {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  width: 1.3em;
+}
+
+.joystick {
+  position: absolute;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em;
+  top: 6em;
+  left: 2em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+  width: 7em;
+  height: 4.8em;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.joystick .icon {
+  margin-right: 0.5em;
+  font-size: 120%;
+}
+.joystick .virtualJoystick {
+  position: relative;
+  font-size: 150px;
+  height: 150px;
+}
+.joystick .virtualJoystick .icon-virtualJoystickIndicator {
+  position: absolute;
+  color: #ddd;
+  top: 0;
+  left: 0;
+}
+.joystick .virtualJoystick .icon-virtualJoystick {
+  position: absolute;
+  color: #bbb;
+  top: 0;
+  left: 0;
+}
+.joystick .keyboard {
+  position: absolute;
+  top: 4em;
+  left: 0.5em;
+}
+
+.joystick.closed {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.hubButtons {
+  position: absolute;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.4em;
+  top: 8em;
+  left: 2em;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+  width: 6.5em;
+  height: 4.8em;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.hubButtons .icon {
+  margin-right: 0.5em;
+  font-size: 120%;
+}
+.hubButtons .controls {
+  font-size: 135%;
+  color: #bbb;
+}
+.hubButtons .controls .icon-buttonsBackspace, .hubButtons .controls .icon-buttonsUp, .hubButtons .controls .icon-buttonsDown, .hubButtons .controls .icon-buttonsLeft, .hubButtons .controls .icon-buttonsRight, .hubButtons .controls .icon-buttonsEnter {
+  position: absolute;
+}
+.hubButtons .controls .pressed {
+  color: #888;
+}
+.hubButtons .controls .icon-buttonsBackspace {
+  left: 1.6em;
+  top: 0.2em;
+}
+.hubButtons .controls .icon-buttonsUp {
+  left: 2.7em;
+  top: 0.28em;
+}
+.hubButtons .controls .icon-buttonsDown {
+  left: 2.7em;
+  top: 2.5em;
+}
+.hubButtons .controls .icon-buttonsLeft {
+  top: 1.4em;
+  left: 1.6em;
+}
+.hubButtons .controls .icon-buttonsRight {
+  top: 1.4em;
+  left: 3.8em;
+}
+.hubButtons .controls .icon-buttonsEnter {
+  top: 1.4em;
+  left: 2.7em;
+}
+
+.hubButtons.closed {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.console {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(25px) saturate(120%);
+  -webkit-backdrop-filter: blur(25px) saturate(120%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 150%;
+  height: 2em;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+}
+.console .chevron {
+  position: absolute;
+  right: 0;
+  font-size: 200%;
+  cursor: pointer;
+  user-select: none;
+}
+.console .chevron::before {
+  content: "⌃";
+}
+.console .clear {
+  position: absolute;
+  right: 0.15em;
+  font-size: 180%;
+  cursor: pointer;
+  user-select: none;
+  top: 1em;
+}
+.console .content {
+  position: absolute;
+  top: 0.5em;
+  bottom: 0.5em;
+  left: 1em;
+  right: 2em;
+  margin: 0px;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: pre-wrap;
+}
+.console .content .error {
+  color: red;
+}
+
+.console.open {
+  height: 10em;
+}
+.console.open .chevron {
+  top: -0.5em;
+}
+.console.open .chevron::before {
+  content: "⌄";
+}
+.console.open .content {
+  overflow-y: scroll;
+}
+
+.dialogWindow .selectWorld .description {
+  display: flex;
+  border: solid 1px white;
+  margin-top: 0.5em;
+}
+.dialogWindow .selectWorld .description .thumbnail {
+  width: 200px;
+  height: 200px;
+}
+.dialogWindow .selectWorld .description .text {
+  border-left: solid 1px white;
+  padding: 0 1em;
+  flex-shrink: 1;
+}
+.dialogWindow .selectWorld .configurations {
+  border: solid 1px white;
+  margin-top: 0.5em;
+  padding: 0 0.5em;
+  overflow-x: hidden;
+}
+.dialogWindow .selectWorld .configurations .configuration {
+  padding: 0.5em 0em;
+}
+.dialogWindow .selectWorld .configurations .configuration input[type=text], .dialogWindow .selectWorld .configurations .configuration input[type=file] {
+  font-size: 100%;
+  background: none;
+  border: solid 1px white;
+  color: white;
+}
+.dialogWindow .selectWorld .configurations .configuration .configurationTitle {
+  color: lightgray;
+  margin-bottom: 0.1em;
+}
+.dialogWindow .selectWorld .configurations .configuration .slider {
+  display: flex;
+}
+.dialogWindow .selectWorld .configurations .configuration .slider input[type=range] {
+  flex-grow: 1;
+}
+.dialogWindow .selectWorld .configurations .configuration .slider input[type=text] {
+  width: 3em;
+  text-align: right;
+}
+.dialogWindow .selectWorld .configurations .configuration .text input[type=text] {
+  width: 100%;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted white;
+}
+
+.tooltip .tooltiptext {
+  background-color: white;
+  color: black;
+  border-radius: 6px;
+  padding: 0.2em 0.5em;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  max-width: 18em;
+  width: max-content;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip.bottom .tooltiptext {
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tooltip.bottom .tooltiptext::after {
+  margin-left: -5px;
+  bottom: 100%;
+  left: 50%;
+  border-color: transparent transparent white transparent;
+}
+
+.tooltip.right .tooltiptext {
+  top: 50%;
+  left: 100%;
+  transform: translate(0.5em, -50%);
+}
+.tooltip.right .tooltiptext::after {
+  margin-top: -5px;
+  right: 100%;
+  top: 50%;
+  border-color: transparent white transparent transparent;
+}
+
+.tooltip.left .tooltiptext {
+  top: 50%;
+  right: 100%;
+  transform: translate(-0.5em, -50%);
+}
+.tooltip.left .tooltiptext::after {
+  margin-top: -5px;
+  left: 100%;
+  top: 50%;
+  border-color: transparent transparent transparent white;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sensors {
+  position: absolute;
+  color: white;
+  top: 1.2em;
+  right: 3.5em;
+  font-size: 300%;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.15em 0.25em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.sensors:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.sensorReadings {
+  position: absolute;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.8em;
+  top: 9em;
+  right: 4em;
+  font-size: 100%;
+  width: 14em;
+  max-height: 70%;
+  overflow-y: auto;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.sensorReadings .sensorReading {
+  margin-bottom: 0.7em;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.sensorReadings .sensorReading .sensorType {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.sensorReadings .sensorReading table.sensorValues {
+  width: 100%;
+  border-collapse: collapse;
+}
+.sensorReadings .sensorReading table.sensorValues td {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 0.3em;
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.sensorReadings .sensorReading table.sensorValues td.sensorValue {
+  text-align: right;
+  min-width: 2em;
+  font-weight: 600;
+}
+
+.sensorReadings.hide {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@keyframes flash {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.worldInfo {
+  position: absolute;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8em;
+  padding: 0.7em 0.9em;
+  top: 0.5em;
+  left: 50%;
+  width: 14em;
+  margin-left: -7em;
+  font-size: 200%;
+  max-height: 20%;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.worldInfo .row {
+  display: flex;
+  justify-content: space-between;
+}
+.worldInfo .mono {
+  font-family: monospace;
+}
+.worldInfo .center {
+  width: 100%;
+  text-align: center;
+}
+.worldInfo .animate {
+  animation-name: flash;
+  animation-duration: 0.5s;
+}
+.worldInfo .red.animate {
+  color: #ff0000;
+}
+.worldInfo .green.animate {
+  color: #00ff00;
+}
+.worldInfo .p0.animate {
+  color: #00ffff;
+}
+.worldInfo .p1.animate {
+  color: #00ff00;
+}
+.worldInfo .p2.animate {
+  color: #ffff00;
+}
+.worldInfo .p3.animate {
+  color: #ff0000;
+}
+.worldInfo .warn {
+  color: #ff0000;
+}
+
+.worldInfo.hide {
+  display: none;
+}
+
+.fps {
+  position: absolute;
+  right: 4em;
+  top: 1em;
+  color: #eb09ff;
+}
+
+#plotter {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  bottom: 3em;
+  right: 0;
+}
+#plotter .close {
+  color: white;
+  border: solid 1px white;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 300px;
+  left: 0px;
+  background: rgba(255, 255, 255, 0.2666666667);
+  cursor: pointer;
+}
+#plotter .position {
+  height: 1em;
+  position: absolute;
+  bottom: 300px;
+  left: 1em;
+  background: rgba(255, 255, 255, 0.2666666667);
+  color: white;
+  padding: 0 0.5em;
+}
+
+#plotter.hide {
+  display: none;
+}
+
+#plotterCanvas {
+  cursor: crosshair;
+}
+
+@font-face {
+  font-family: "icomoon";
+  src: url("/icomoon.eot?zcpech");
+  src: url("/icomoon.eot?zcpech#iefix") format("embedded-opentype"), url("/icomoon.ttf?zcpech") format("truetype"), url("/icomoon.woff?zcpech") format("woff"), url("/icomoon.svg?zcpech#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=icon-], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-edit:before {
+  content: "\e91b";
+}
+
+.icon-kebab:before {
+  content: "\e918";
+}
+
+.icon-plus:before {
+  content: "\e91a";
+}
+
+.icon-deleteFile:before {
+  content: "\e917";
+}
+
+.icon-download:before {
+  content: "\e915";
+}
+
+.icon-upload:before {
+  content: "\e916";
+}
+
+.icon-newFile:before {
+  content: "\e919";
+}
+
+.icon-buttonsDown:before {
+  content: "\e90e";
+}
+
+.icon-buttonsLeft:before {
+  content: "\e90f";
+}
+
+.icon-buttonsRight:before {
+  content: "\e910";
+}
+
+.icon-buttonsUp:before {
+  content: "\e911";
+}
+
+.icon-buttons:before {
+  content: "\e912";
+}
+
+.icon-buttonsBackspace:before {
+  content: "\e913";
+}
+
+.icon-buttonsEnter:before {
+  content: "\e914";
+}
+
+.icon-sensors:before {
+  content: "\e90d";
+}
+
+.icon-reset:before {
+  content: "\e90c";
+}
+
+.icon-keyboard:before {
+  content: "\e90b";
+}
+
+.icon-cameraArc:before {
+  content: "\e900";
+}
+
+.icon-cameraTop:before {
+  content: "\e901";
+}
+
+.icon-cameraFollow:before {
+  content: "\e902";
+}
+
+.icon-ruler:before {
+  content: "\e903";
+}
+
+.icon-camera:before {
+  content: "\e904";
+}
+
+.icon-virtualJoystickIndicator:before {
+  content: "\e905";
+}
+
+.icon-stop:before {
+  content: "\e906";
+}
+
+.icon-play:before {
+  content: "\e907";
+}
+
+.icon-globe:before {
+  content: "\e908";
+}
+
+.icon-virtualJoystick:before {
+  content: "\e909";
+}
+
+.icon-joystick:before {
+  content: "\e90a";
+}
+
+#arenaFrame {
+  background-color: white;
+  border: solid 40px;
+}
+#arenaFrame .row {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+#arenaFrame .row.header {
+  background-color: lightgray;
+}
+#arenaFrame #enable {
+  margin-right: 1.5em;
+}
+#arenaFrame #player {
+  font-size: 200%;
+  font-weight: bold;
+}
+#arenaFrame #zip {
+  visibility: hidden;
+}
+#arenaFrame #zipLabel {
+  font-size: 16px;
+}
+#arenaFrame #zipLabel .fileSelector {
+  margin-top: 0.5em;
+}
+#arenaFrame #zipLabel .fileSelector input, #arenaFrame #zipLabel .fileSelector label {
+  font-size: 16px;
+  border: solid 1px gray;
+  box-sizing: border-box;
+  height: 2em;
+  padding: 0 0.5em;
+  outline: none;
+  float: left;
+}
+#arenaFrame #zipLabel .fileSelector input {
+  border-right: none;
+  width: 14em;
+  border-radius: 0.4em 0 0 0.4em;
+}
+#arenaFrame #zipLabel .fileSelector label {
+  border-radius: 0 0.4em 0.4em 0;
+  background: #4EB9D5;
+  color: white;
+  padding-top: 0.35em;
+}
+
+#arenaFrame.bot0 {
+  border-color: #00FFFF;
+}
+
+#arenaFrame.bot1 {
+  border-color: #00FF00;
+}
+
+#arenaFrame.bot2 {
+  border-color: #FFFF00;
+}
+
+#arenaFrame.bot3 {
+  border-color: #FF0000;
+}
+
+#arenaFrame.bot0.disabled {
+  border-color: #446666;
+}
+#arenaFrame.bot0.disabled #player {
+  color: gray;
+}
+
+#arenaFrame.bot1.disabled {
+  border-color: #446644;
+}
+#arenaFrame.bot1.disabled #player {
+  color: gray;
+}
+
+#arenaFrame.bot2.disabled {
+  border-color: #666644;
+}
+#arenaFrame.bot2.disabled #player {
+  color: gray;
+}
+
+#arenaFrame.bot3.disabled {
+  border-color: #664444;
+}
+#arenaFrame.bot3.disabled #player {
+  color: gray;
+}
+
+.botsPanel {
+  background: white;
+}
+.botsPanel .botsRow {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+.botsPanel .botsRow .bot {
+  width: 50%;
+}
+.botsPanel .botsRow .bot iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.console .player0 {
+  color: #00FFFF;
+}
+.console .player1 {
+  color: #00FF00;
+}
+.console .player2 {
+  color: #FFFF00;
+}
+.console .player3 {
+  color: #FF0000;
+}
+
+.python {
+  display: flex;
+  flex-direction: column;
+  background: rgba(47, 49, 41, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 125%;
+  font-family: "Monaco", "Menlo", "Consolas", monospace;
+  width: 100%;
+  height: 100%;
+}
+.python #pythonCode {
+  width: 100%;
+  height: 100%;
+  font-size: 120%;
+}
+.python #pythonCode.hide {
+  display: none;
+}
+.python #filesRow {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3em 0.5em;
+}
+.python #filesRow #filesList {
+  display: flex;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  gap: 0.3em;
+}
+.python #filesRow #filesList .file {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.5em;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+.python #filesRow #filesList .file:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+}
+.python #filesRow #filesList .file .renameFile, .python #filesRow #filesList .file .deleteFile {
+  display: none;
+  margin-left: 0.5em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.python #filesRow #filesList .file .renameFile:hover, .python #filesRow #filesList .file .deleteFile:hover {
+  opacity: 1;
+}
+.python #filesRow #filesList .file.selected {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  color: white;
+  font-weight: 600;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.python #filesRow #filesList .file.selected .renameFile, .python #filesRow #filesList .file.selected .deleteFile {
+  display: block;
+}
+.python #filesRow #filesList::-webkit-scrollbar {
+  display: none;
+}
+.python #filesRow #addNewFile {
+  padding: 0.4em 0.8em;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5em;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 0.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+.python #filesRow #addNewFile:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.componentsWindow, .objectsWindow {
+  position: absolute;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5em;
+  padding: 1em;
+  top: 2em;
+  left: 1em;
+  font-size: 100%;
+  width: 15em;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+.componentsWindow .buttons, .objectsWindow .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-size: 120%;
+}
+.componentsWindow .buttons div, .objectsWindow .buttons div {
+  border: solid 2px #bbbbbb;
+  padding: 0.3em 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  user-select: none;
+}
+.componentsWindow .componentsList, .componentsWindow .objectsList, .objectsWindow .componentsList, .objectsWindow .objectsList {
+  font-size: 120%;
+  overflow: auto;
+  flex-grow: 1;
+  white-space: nowrap;
+  margin-bottom: 1em;
+}
+.componentsWindow .componentsList ul, .componentsWindow .objectsList ul, .objectsWindow .componentsList ul, .objectsWindow .objectsList ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+.componentsWindow .componentsList ul ul, .componentsWindow .objectsList ul ul, .objectsWindow .componentsList ul ul, .objectsWindow .objectsList ul ul {
+  padding-inline-start: 1em;
+  list-style-type: "˪ ";
+}
+.componentsWindow .componentsList li, .componentsWindow .objectsList li, .objectsWindow .componentsList li, .objectsWindow .objectsList li {
+  cursor: pointer;
+  user-select: none;
+}
+.componentsWindow .componentsList li.selected, .componentsWindow .objectsList li.selected, .objectsWindow .componentsList li.selected, .objectsWindow .objectsList li.selected {
+  background-color: #bbbbbb;
+}
+.componentsWindow .componentsList li.ulHolder, .componentsWindow .objectsList li.ulHolder, .objectsWindow .componentsList li.ulHolder, .objectsWindow .objectsList li.ulHolder {
+  list-style-type: none;
+}
+
+.objectID {
+  position: absolute;
+  top: 0.5em;
+  right: 2em;
+  width: 20em;
+  color: white;
+}
+
+.settingsWindow {
+  position: absolute;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5em;
+  padding: 1em;
+  top: 2em;
+  right: 1em;
+  font-size: 100%;
+  width: 20em;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+.settingsWindow .settingsArea {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.settingsWindow .buttons {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  font-size: 90%;
+}
+.settingsWindow .buttons div {
+  border: solid 2px #bbbbbb;
+  padding: 0.3em 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  user-select: none;
+}
+.settingsWindow .componentName {
+  text-align: center;
+  font-size: 120%;
+  font-weight: bold;
+}
+.settingsWindow .configuration {
+  padding: 0.5em 0;
+}
+.settingsWindow .configurationTitle {
+  color: lightgray;
+  margin-bottom: 0.1em;
+}
+.settingsWindow .slider {
+  display: flex;
+}
+.settingsWindow .slider input[type=range] {
+  flex-grow: 1;
+}
+.settingsWindow .slider input[type=text] {
+  width: 3em;
+  text-align: right;
+}
+.settingsWindow input[type=number] {
+  width: 3em;
+}
+.settingsWindow .tooltip .tooltiptext {
+  max-width: 10em;
+}
+
+.dialogWindow .selectImage, .dialogWindow .selectModel, .dialogWindow .editAnimationKeys {
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+.dialogWindow .selectImage .search, .dialogWindow .selectModel .search, .dialogWindow .editAnimationKeys .search {
+  display: flex;
+  margin-top: 0.5em;
+}
+.dialogWindow .selectImage .search input, .dialogWindow .selectModel .search input, .dialogWindow .editAnimationKeys .search input {
+  font-size: 100%;
+  width: 100%;
+  background: none;
+  color: white;
+  border: solid 1px white;
+  padding: 0 0.2em;
+  margin-left: 0.5em;
+}
+.dialogWindow .selectImage .images, .dialogWindow .selectImage .items, .dialogWindow .selectModel .images, .dialogWindow .selectModel .items, .dialogWindow .editAnimationKeys .images, .dialogWindow .editAnimationKeys .items {
+  border: solid 1px white;
+  margin-top: 0.5em;
+  padding: 0.5em;
+  overflow-y: auto;
+  max-height: 20em;
+}
+.dialogWindow .selectImage .images .row, .dialogWindow .selectImage .items .row, .dialogWindow .selectModel .images .row, .dialogWindow .selectModel .items .row, .dialogWindow .editAnimationKeys .images .row, .dialogWindow .editAnimationKeys .items .row {
+  display: flex;
+}
+.dialogWindow .selectImage .images .row .description, .dialogWindow .selectImage .items .row .description, .dialogWindow .selectModel .images .row .description, .dialogWindow .selectModel .items .row .description, .dialogWindow .editAnimationKeys .images .row .description, .dialogWindow .editAnimationKeys .items .row .description {
+  border: solid 1px white;
+  flex-grow: 1;
+  padding: 0 0.5em;
+}
+.dialogWindow .selectImage .images .row .select, .dialogWindow .selectImage .items .row .select, .dialogWindow .selectModel .images .row .select, .dialogWindow .selectModel .items .row .select, .dialogWindow .editAnimationKeys .images .row .select, .dialogWindow .editAnimationKeys .items .row .select {
+  border: solid 1px white;
+  padding: 0.5em;
+}
+.dialogWindow .selectImage .images .row.hide, .dialogWindow .selectImage .items .row.hide, .dialogWindow .selectModel .images .row.hide, .dialogWindow .selectModel .items .row.hide, .dialogWindow .editAnimationKeys .images .row.hide, .dialogWindow .editAnimationKeys .items .row.hide {
+  display: none;
+}
+.dialogWindow .selectImage table, .dialogWindow .selectModel table, .dialogWindow .editAnimationKeys table {
+  border: solid 1px white;
+}
+.dialogWindow .selectImage table th, .dialogWindow .selectModel table th, .dialogWindow .editAnimationKeys table th {
+  border: solid 1px white;
+}
+.dialogWindow .selectImage table th, .dialogWindow .selectImage table td, .dialogWindow .selectModel table th, .dialogWindow .selectModel table td, .dialogWindow .editAnimationKeys table th, .dialogWindow .editAnimationKeys table td {
+  width: 3em;
+  text-align: center;
+}
+.dialogWindow .selectImage table th input, .dialogWindow .selectImage table td input, .dialogWindow .selectModel table th input, .dialogWindow .selectModel table td input, .dialogWindow .editAnimationKeys table th input, .dialogWindow .editAnimationKeys table td input {
+  width: 100%;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+.dialogWindow .searchCount {
+  margin-right: auto;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f4c75 0%, #3282b8 25%, #0a7cb8 50%, #1fa8b8 75%, #15d4d4 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(26, 168, 184, 0.3), transparent 50%), radial-gradient(circle at 40% 20%, rgba(50, 130, 184, 0.2), transparent 50%);
+  animation: gradientShift 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+header {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 0em 1em;
+  height: 2.2em;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+header .gearsIcon {
+  height: 1.6em;
+  margin-right: 0.5em;
+  margin-top: -0.3em;
+  margin-bottom: -0.3em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+header #projectName, header #robotName {
+  margin-left: 1em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.3em 0.8em;
+  position: relative;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+header #projectName:hover, header #robotName:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+header #projectName:focus, header #robotName:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+header #projectName::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+header .language {
+  margin-left: auto;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+header .language:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+nav {
+  margin-top: 0.5em;
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding-bottom: 0.3em;
+  position: relative;
+  z-index: 10;
+}
+nav ul.panelTabs {
+  display: flex;
+  padding-left: 5px;
+  margin: 0;
+  gap: 0.3em;
+}
+nav ul.panelTabs li {
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4em 1.2em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+nav ul.panelTabs li:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+nav ul.panelTabs li.active {
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
+  font-size: 110%;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+nav .menuBar {
+  display: flex;
+  margin-left: 0.5em;
+  gap: 0.2em;
+}
+nav .menuBar .menuItem {
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+nav .menuBar .menuItem:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+nav .news {
+  margin-left: 2em;
+  font-weight: bold;
+  color: #ff6b6b;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+nav .news:hover {
+  background: rgba(255, 107, 107, 0.2);
+  transform: scale(1.05);
+}
+nav .panelControlsArea {
+  margin-left: auto;
+}
+nav .panelControlsArea .panelControls {
+  display: none;
+}
+nav .panelControlsArea .panelControls .codeTypeSelector {
+  display: inline-flex;
+  gap: 0.5em;
+  margin-right: 1em;
+}
+nav .panelControlsArea .panelControls .codeTypeSelector button {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.4em 1em;
+  border-radius: 0.6em;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+nav .panelControlsArea .panelControls .codeTypeSelector button:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+nav .panelControlsArea .panelControls .codeTypeSelector button.active {
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+nav .panelControlsArea .panelControls.active {
+  display: block;
+}
+
+.panels {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  margin: 0.5em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.panels .panel {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.panels .panel.active {
+  z-index: 0;
+}
+
+.saveBlockly, .savePython {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  user-select: none;
+  margin: 0 1em;
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.saveBlockly:hover, .savePython:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+.saveBlockly.hide, .savePython.hide {
+  display: none;
+}
+
+.dialogWindow .selectRobot .description {
+  display: flex;
+  border: solid 1px white;
+  margin-top: 0.5em;
+}
+.dialogWindow .selectRobot .description .thumbnail {
+  width: 200px;
+  height: 200px;
+}
+.dialogWindow .selectRobot .description .text {
+  border-left: solid 1px white;
+  padding: 0 1em;
+  flex-shrink: 1;
+}
+.dialogWindow .selectRobot .configurations {
+  border: solid 1px white;
+  margin-top: 0.5em;
+  padding: 0 0.5em;
+}
+
+ul.menuDropDown {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #f5f5f5;
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.8em;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+ul.menuDropDown li {
+  display: block;
+  color: inherit;
+  padding: 0.7em 1em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+ul.menuDropDown li:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+ul.menuDropDown li.underline {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+ul.menuDropDown .tick {
+  color: #4ade80;
+}
+
+ul.menuDropDownRightAlign {
+  top: 100%;
+}
+
+.helperToggle {
+  position: absolute;
+  right: 1em;
+  top: 0.3em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.4em 0.9em;
+  border-radius: 0.6em;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.helperToggle:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.helperCard {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1em;
+  padding: 1.2em;
+  max-width: 350px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: helperSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.helperCard.hide {
+  display: none;
+}
+.helperCard .helperClose {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.4em;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.1em 0.3em;
+  width: 1.5em;
+  height: 1.5em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.helperCard .helperClose:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: scale(1.1);
+}
+.helperCard .helperTitle {
+  font-weight: 700;
+  font-size: 1.15em;
+  margin-bottom: 0.6em;
+  color: white;
+  padding-right: 1.5em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.helperCard p {
+  margin: 0;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes helperSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/*# sourceMappingURL=main.css?v=9584d2b6.map *//* ============================================
+   APPLE GLASS DESIGN SYSTEM
+   Sophisticated dual-theme with glassmorphism
+   ============================================ */
+
+/* Theme Variables */
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #000000;
+  --bg-glass: rgba(20, 20, 20, 0.5);
+  --bg-glass-hover: rgba(30, 30, 30, 0.6);
+  --text-primary: #ffffff;
+  --text-secondary: #ebebf5;
+  --text-tertiary: #aeaeb2;
+  --accent-blue: #0a84ff;
+  --accent-blue-hover: #409cff;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(10, 132, 255, 0.5);
+  --shadow-glass: rgba(0, 0, 0, 0.3);
+  --blur-amount: 24px;
+  --blur-light: 20px;
+  --spring-curve: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --spring-duration: 0.3s;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg-primary: #f5f5f7;
+  --bg-glass: rgba(245, 245, 245, 0.85);
+  --bg-glass-hover: rgba(255, 255, 255, 0.9);
+  --text-primary: #1d1d1f;
+  --text-secondary: #424245;
+  --text-tertiary: #86868b;
+  --border-subtle: rgba(0, 0, 0, 0.15);
+  --shadow-glass: rgba(0, 0, 0, 0.1);
+}
+
+/* Base Overrides */
+html, body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  transition: background var(--spring-duration) var(--spring-curve), color var(--spring-duration) var(--spring-curve);
+}
+
+/* Header - Glass Navigation */
+header {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  color: var(--text-primary) !important;
+  height: 3em !important;
+  padding: 0 1.5em !important;
+  position: relative;
+  z-index: 1000;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+header .gearsIcon {
+  height: 1.8em !important;
+  margin-right: 0.8em !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  filter: drop-shadow(0 2px 8px rgba(10, 132, 255, 0.3));
+  transition: transform var(--spring-duration) var(--spring-curve);
+  z-index: 1;
+}
+
+header .gearsIcon:hover {
+  transform: scale(1.05);
+}
+
+header #projectName,
+header #robotName {
+  background: transparent !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  padding: 0.5em 0.8em !important;
+  color: var(--text-primary) !important;
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(var(--blur-light));
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+header #projectName:hover,
+header #robotName:hover {
+  border-color: var(--accent-blue) !important;
+  background: rgba(10, 132, 255, 0.05) !important;
+}
+
+header #projectName:focus,
+header #robotName:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px var(--border-focus) !important;
+}
+
+header #projectName::placeholder {
+  color: var(--text-tertiary) !important;
+}
+
+header .language {
+  padding: 0.5em 1em !important;
+  border-radius: 8px !important;
+  border: 1px solid transparent !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  background: transparent !important;
+}
+
+header .language:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Main Content Area with Glass Panels */
+main {
+  background: transparent !important;
+  gap: 0.8em;
+  padding: 0.8em;
+}
+
+main > section {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  position: relative;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+main > section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Navigation Tabs - Glass Style */
+nav {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  margin-top: 0 !important;
+}
+
+nav ul.panelTabs li {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px 8px 0 0 !important;
+  color: var(--text-secondary) !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+nav ul.panelTabs li:hover {
+  background: var(--bg-glass-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+nav ul.panelTabs li.active {
+  background: var(--bg-glass-hover) !important;
+  color: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 -2px 8px rgba(10, 132, 255, 0.2) !important;
+}
+
+/* Buttons - iOS Glass Style */
+button,
+.button {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  color: var(--text-primary) !important;
+  padding: 0.6em 1.2em !important;
+  font-size: 0.9em !important;
+  font-weight: 600 !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before,
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+  opacity: 0;
+  transition: opacity var(--spring-duration) var(--spring-curve);
+  pointer-events: none;
+}
+
+button:hover,
+.button:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-glass) !important;
+}
+
+button:hover::before,
+.button:hover::before {
+  opacity: 1;
+}
+
+button:active,
+.button:active {
+  transform: translateY(0);
+}
+
+button.active {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4) !important;
+}
+
+/* Run/Stop Button */
+.runSim {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3) !important;
+}
+
+.runSim:hover {
+  background: var(--accent-blue-hover) !important;
+  border-color: var(--accent-blue-hover) !important;
+  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4) !important;
+}
+
+/* Code Type Selector (Arduino/Python) */
+.codeTypeSelector {
+  display: inline-flex;
+  gap: 0.5em;
+  margin-right: 1em;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  padding: 0.3em !important;
+}
+
+.codeTypeSelector button {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--text-secondary) !important;
+  padding: 0.5em 1em !important;
+  border-radius: 8px !important;
+  font-size: 0.85em !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.codeTypeSelector button::before {
+  display: none !important;
+}
+
+.codeTypeSelector button:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+  color: var(--text-primary) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.codeTypeSelector button.active {
+  background: var(--accent-blue) !important;
+  color: white !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3) !important;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.6em 0.8em !important;
+  font-size: 0.9em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--accent-blue) !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px var(--border-focus) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-tertiary) !important;
+}
+
+/* Panels */
+.blocklyPanel,
+.pythonPanel,
+.simPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Blockly Workspace */
+.blocklyToolboxDiv {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.blocklyFlyout {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+/* ACE Editor - Dark glass background */
+.ace_editor {
+  background: var(--bg-glass) !important;
+  color: var(--text-primary) !important;
+}
+
+.ace_gutter {
+  background: var(--bg-glass) !important;
+  color: var(--text-tertiary) !important;
+}
+
+/* Console */
+.console {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-top: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+.console .content {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Scrollbars - Minimal Apple Style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+  transition: background var(--spring-duration) var(--spring-curve);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Selection */
+::selection {
+  background: rgba(10, 132, 255, 0.3);
+  color: var(--text-primary);
+}
+
+/* Simulator Canvas */
+canvas {
+  border-radius: 12px !important;
+}
+
+/* World selector and other dropdowns */
+.world,
+.camera,
+.sensors {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Menu items */
+.menuItem {
+  color: var(--text-secondary) !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.menuItem:hover {
+  color: var(--accent-blue) !important;
+}
+
+/* Modals and dialogs */
+.acknowledgeDialog,
+.confirmDialog {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--spring-duration) var(--spring-curve);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  margin-left: 1em;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--blur-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--spring-duration) var(--spring-curve);
+  color: var(--text-primary);
+  font-size: 1.2em;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-blue);
+  transform: scale(1.05);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Enhanced Simulator Panel Styling */
+.simPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.simPanel canvas {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px var(--shadow-glass) !important;
+}
+
+/* Blockly Panel Glass Effect */
+.blocklyPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.blocklyWorkspace {
+  background: transparent !important;
+}
+
+/* Python/Code Panel */
+.pythonPanel {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+/* Simulator Controls */
+.simControls,
+.worldControls {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  padding: 0.8em !important;
+  margin: 0.5em !important;
+}
+
+/* World Selector */
+.world,
+.worldSelector {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+}
+
+/* Camera and Sensor Buttons */
+.camera,
+.sensors,
+.ruler,
+.reset {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.camera:hover,
+.sensors:hover,
+.ruler:hover,
+.reset:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+}
+
+/* Menu Dropdown Glass */
+.menuDropDown {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0 !important;
+}
+
+.menuDropDown > div {
+  color: var(--text-primary) !important;
+  padding: 0.6em 1.2em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.menuDropDown > div:hover {
+  background: rgba(10, 132, 255, 0.15) !important;
+  color: var(--accent-blue) !important;
+}
+
+.menuDropDown > div.line {
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+/* Blockly Toolbox */
+.blocklyToolboxDiv {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.blocklyTreeRow {
+  color: var(--text-primary) !important;
+}
+
+.blocklyTreeLabel {
+  color: var(--text-secondary) !important;
+}
+
+.blocklyTreeRow:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+}
+
+.blocklyTreeRow.blocklyTreeSelected {
+  background: rgba(10, 132, 255, 0.2) !important;
+}
+
+/* ACE Editor Enhanced */
+.ace_editor {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+}
+
+.ace_gutter {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+.ace_gutter-active-line {
+  background: rgba(10, 132, 255, 0.1) !important;
+}
+
+.ace_active-line {
+  background: rgba(10, 132, 255, 0.05) !important;
+}
+
+/* Console Glass */
+.console {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border-top: 1px solid var(--border-subtle) !important;
+}
+
+.console .chevron {
+  color: var(--text-secondary) !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+}
+
+.console .chevron:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+  color: var(--accent-blue) !important;
+}
+
+.console .content {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace !important;
+}
+
+/* Sensor Readings Panel */
+.sensorReadings {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  color: var(--text-primary) !important;
+  padding: 1em !important;
+}
+
+/* Modal Dialogs */
+.modal,
+.acknowledgeDialog,
+.confirmDialog,
+.acknowledgeOverlay,
+.confirmOverlay {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  color: var(--text-primary) !important;
+}
+
+.acknowledgeOverlay,
+.confirmOverlay {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Icon Colors */
+[class^="icon-"],
+[class*=" icon-"] {
+  color: var(--text-secondary) !important;
+  transition: color var(--spring-duration) var(--spring-curve);
+}
+
+button:hover [class^="icon-"],
+button:hover [class*=" icon-"],
+.button:hover [class^="icon-"],
+.button:hover [class*=" icon-"] {
+  color: var(--accent-blue) !important;
+}
+
+/* Enhanced Blockly Workspace for Apple Glass */
+.blocklyWorkspace {
+  background: transparent !important;
+}
+
+.blocklyMainBackground {
+  stroke: none !important;
+  fill: transparent !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: rgba(0, 0, 0, 0.5) !important;
+  fill-opacity: 0.95 !important;
+}
+
+.blocklyScrollbarBackground {
+  fill: rgba(10, 132, 255, 0.2) !important;
+  fill-opacity: 0.3 !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: rgba(10, 132, 255, 0.6) !important;
+}
+
+/* Blockly zoom controls modern style */
+.blocklyZoom {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.blocklyZoom > image {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.blocklyZoom > image:hover {
+  opacity: 1;
+}
+
+/* Blockly blocks with subtle glass effect */
+.blocklyPath {
+  stroke-width: 1px !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.blocklyDraggable:not(.blocklyDisabled) .blocklyPath {
+  transition: filter 0.15s ease;
+}
+
+.blocklyDraggable:not(.blocklyDisabled):hover .blocklyPath {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Selected block highlight */
+.blocklySelected > .blocklyPath {
+  stroke: #0a84ff !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 0 8px rgba(10, 132, 255, 0.5));
+}
+
+/* Blockly text with better readability */
+.blocklyText {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 500 !important;
+  fill: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.blocklyNonEditableText > text,
+.blocklyEditableText > text {
+  fill: #ffffff !important;
+}
+
+/* Blockly dropdown with glass effect */
+.blocklyDropDownDiv {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.blocklyMenuItem {
+  color: #ffffff !important;
+  padding: 8px 16px !important;
+  transition: background 0.2s ease;
+}
+
+.blocklyMenuItem:hover {
+  background: rgba(10, 132, 255, 0.2) !important;
+}
+
+.blocklyMenuItemHighlight {
+  background: rgba(10, 132, 255, 0.3) !important;
+}
+
+/* Blockly context menu */
+.blocklyContextMenu {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Blockly widget div (for inputs) */
+.blocklyWidgetDiv {
+  background: rgba(30, 30, 30, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  color: #ffffff !important;
+}
+
+.blocklyWidgetDiv input,
+.blocklyWidgetDiv select {
+  background: rgba(50, 50, 50, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+}
+
+/* Trash can icon (if enabled) */
+.blocklyTrash {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.blocklyTrash:hover {
+  opacity: 1;
+}
+
+/* Light theme overrides for Blockly */
+[data-theme="light"] .blocklyToolboxDiv,
+[data-theme="light"] .blocklyFlyoutBackground {
+  background: rgba(255, 255, 255, 0.3) !important;
+  fill: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="light"] .blocklyDropDownDiv,
+[data-theme="light"] .blocklyContextMenu,
+[data-theme="light"] .blocklyWidgetDiv {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .blocklyMenuItem {
+  color: #1d1d1f !important;
+}
+
+[data-theme="light"] .blocklyWidgetDiv input,
+[data-theme="light"] .blocklyWidgetDiv select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  color: #1d1d1f !important;
+}
+
+/* ROVER Sim App Title (replacing logo) */
+.appTitle {
+  font-size: 1.5em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0a84ff 0%, #30d158 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  margin-right: auto;
+  padding: 0.2em 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme="light"] .appTitle {
+  background: linear-gradient(135deg, #007aff 0%, #34c759 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hide old gearsIcon if it still exists */
+.gearsIcon {
+  display: none !important;
+}
+
+/* URL Generator Page Styling */
+.urlGeneratorMain {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 2em;
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--blur-amount));
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  color: var(--text-primary);
+}
+
+.urlGeneratorMain div {
+  margin: 1.2em 0;
+}
+
+.urlGeneratorMain label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: var(--text-primary);
+}
+
+.urlGeneratorMain input[type=text] {
+  width: 100%;
+  padding: 0.8em;
+  background: rgba(50, 50, 50, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.95em;
+  transition: all 0.2s var(--spring-curve);
+}
+
+.urlGeneratorMain input[type=text]:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(50, 50, 50, 0.7);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.urlGeneratorMain button {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 0.8em 2em;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--spring-curve);
+}
+
+.urlGeneratorMain button:hover {
+  background: #0066cc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+}
+
+.urlGeneratorMain #output {
+  background: rgba(30, 30, 30, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+}
+
+.urlGeneratorMain #errors {
+  color: #ff453a;
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+
+.urlGeneratorMain #results {
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+.urlGeneratorMain p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 1em 0;
+}
+
+.urlGeneratorMain a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.urlGeneratorMain a:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.urlGeneratorMain h3 {
+  color: var(--text-primary);
+  margin-top: 1.5em;
+}
+
+/* Light theme overrides for URL Generator */
+[data-theme="light"] .urlGeneratorMain input[type=text] {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .urlGeneratorMain input[type=text]:focus {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .urlGeneratorMain #output {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced Plotter with Apple Glass Theme */
+#plotter {
+  width: 450px !important;
+  height: 350px !important;
+  bottom: 5em !important;
+  right: 1em !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-amount)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px var(--shadow-glass) !important;
+  padding: 1em !important;
+}
+
+#plotterCanvas {
+  width: 100% !important;
+  height: calc(100% - 2em) !important;
+  border-radius: 8px !important;
+  background: rgba(20, 20, 20, 0.5) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+#plotter .close {
+  position: absolute !important;
+  top: 0.5em !important;
+  right: 0.5em !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 2em !important;
+  height: 2em !important;
+  background: rgba(255, 69, 58, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  font-size: 1em !important;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s var(--spring-curve) !important;
+}
+
+#plotter .close:hover {
+  background: rgba(255, 69, 58, 1) !important;
+  transform: scale(1.1) !important;
+}
+
+#plotter .position {
+  position: absolute !important;
+  top: 0.5em !important;
+  left: 0.5em !important;
+  bottom: auto !important;
+  background: rgba(10, 132, 255, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  color: white !important;
+  padding: 0.5em 1em !important;
+  font-family: 'SF Mono', Monaco, monospace !important;
+  font-size: 0.85em !important;
+  font-weight: 600 !important;
+}
+
+/* Plotter Title */
+#plotter::before {
+  content: 'Data Plotter';
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.5em;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* Light theme overrides */
+[data-theme="light"] #plotterCanvas {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="light"] #plotter .position {
+  background: rgba(10, 132, 255, 0.9) !important;
+}
+
+/* Plotter Button Styling */
+.plotter {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(var(--blur-light)) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  padding: 0.5em 0.8em !important;
+  transition: all var(--spring-duration) var(--spring-curve);
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+.plotter:hover {
+  background: var(--bg-glass-hover) !important;
+  border-color: var(--accent-blue) !important;
+  transform: translateY(-1px);
+}
+
+.plotter .icon-plotter {
+  font-size: 1.2em !important;
+}
+@keyframes show {
+  0% {
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  80% {
+    transform: translateY(5px) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes hide {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+@keyframes toast {
+  0% {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1.05) translateY(0);
+    opacity: 1;
+  }
+  15% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
+  }
+}
+.animatedHide {
+  animation-name: hide !important;
+}
+
+#activitySpinner {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#activitySpinner > i {
+  font-size: 200px;
+  color: white;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  animation: spin 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.toastMsg {
+  z-index: 2000;
+  animation-name: toast;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: forwards;
+  position: fixed;
+  font-size: 130%;
+  font-weight: 600;
+  width: 60%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3%;
+  border-radius: 1em;
+  padding: 0.8em 1.2em;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dialogScreen {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.dialogScreen > .dialogWindow {
+  animation-name: show;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation-fill-mode: forwards;
+  width: 40em;
+  max-width: 90%;
+  top: 10%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  color: #f5f5f5;
+  border-radius: 1.2em;
+  font-size: 120%;
+  max-height: 80%;
+  overflow-y: auto;
+  margin: auto;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+.dialogScreen > .dialogWindow > .dialogTitle {
+  padding: 0.8rem 1.4rem;
+  font-size: 135%;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.dialogScreen > .dialogWindow > .dialogBody {
+  padding: 1rem 1.4rem;
+  overflow-y: auto;
+}
+.dialogScreen > .dialogWindow > .dialogBody input {
+  font-size: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  padding: 0.4em 0.6em;
+  color: white;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dialogScreen > .dialogWindow > .dialogBody input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0.8em 1.4em;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  gap: 0.5em;
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow > button {
+  font-size: 100%;
+  border: none;
+  border-radius: 0.6em;
+  padding: 0.5em 1.2em;
+  min-width: 5em;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow > button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow > button:active {
+  transform: translateY(0);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .push-left {
+  margin-right: auto;
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success {
+  color: white;
+  background: rgba(76, 217, 100, 0.3);
+  border-color: rgba(76, 217, 100, 0.4);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-success:hover {
+  background: rgba(76, 217, 100, 0.4);
+  border-color: rgba(76, 217, 100, 0.5);
+  box-shadow: 0 8px 24px rgba(76, 217, 100, 0.3);
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f5f5f5;
+}
+.dialogScreen > .dialogWindow > .dialogButtonsRow .btn-light:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.dialogScreen > .dialogWindow select {
+  font-size: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6em;
+  padding: 0.5em 0.7em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dialogScreen > .dialogWindow select:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+.dialogScreen > .dialogWindow select:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.animateClick {
+  transform: scale(0.95);
+  transition: all 0.1s;
+}
+
+/*# sourceMappingURL=widgets.css.map */
