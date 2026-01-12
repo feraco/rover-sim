@@ -8,6 +8,8 @@ import Configurator from './pages/Configurator'
 import GenerateURL from './pages/GenerateURL'
 
 function App() {
+  console.log('App component rendering');
+
   return (
     <BrowserRouter>
       <Routes>
