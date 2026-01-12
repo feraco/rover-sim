@@ -71,6 +71,12 @@ export class BlocklyManager {
     }
 
     const blocks = this.workspace.getAllBlocks(false);
+
+    if (blocks.length === 0) {
+      return '// Drag Arduino blocks from the toolbox to generate code\n' +
+             '// Example blocks: moveForward, turnLeft, turnRight, etc.\n';
+    }
+
     let code = '// Arduino Code Generated from Blocks\n\n';
     code += 'void setup() {\n';
     code += '  // Initialization code here\n';

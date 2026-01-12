@@ -43,6 +43,8 @@ export function useBlockly(toolbox) {
   useEffect(() => {
     if (blocklyManager) {
       blocklyManager.setGenerator(generator);
+      const code = blocklyManager.generateCode();
+      useBlocklyStore.getState().setGeneratedCode(code);
     }
   }, [generator, blocklyManager]);
 

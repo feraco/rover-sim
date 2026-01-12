@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useBlocklyStore } from '../store/blocklyStore';
+import { useSimulationStore } from '../store/simulationStore';
+import { ArduinoExecutor } from '../lib/arduinoExecutor';
 
 export function ArduinoPanel() {
   const editorRef = useRef(null);
   const [editor, setEditor] = useState(null);
   const [error, setError] = useState(null);
+  const [executor] = useState(() => new ArduinoExecutor());
   const { generatedCode } = useBlocklyStore();
+  const { robot, isRunning, setRunning } = useSimulationStore();
 
   useEffect(() => {
     console.log('ArduinoPanel mounted');
@@ -55,6 +59,31 @@ export function ArduinoPanel() {
     }
   }, [generatedCode, editor]);
 
+  useEffect(() => {
+    if (robot) {
+      executor.setRobot(robot);
+    }
+  }, [robot, executor]);
+
+  const handleRun = async () => {
+    if (!generatedCode || !robot) {
+      console.error('No code or robot available');
+      return;
+    }
+
+    setRunning(true);
+    try {
+      await executor.executeCode(generatedCode);
+    } finally {
+      setRunning(false);
+    }
+  };
+
+  const handleStop = () => {
+    executor.stop();
+    setRunning(false);
+  };
+
   if (error) {
     return (
       <div style={{ padding: '20px', color: '#ff4444' }}>
@@ -81,17 +110,44 @@ export function ArduinoPanel() {
         alignItems: 'center'
       }}>
         <div style={{ color: '#fff', fontWeight: 'bold' }}>Arduino C++ Code</div>
-        <button style={{
-          padding: '6px 16px',
-          backgroundColor: '#0a0',
-          color: '#fff',
-          border: 'none',
-          cursor: 'pointer',
-          borderRadius: '4px',
-          fontWeight: 'bold'
-        }}>
-          Download .ino
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button
+            onClick={handleRun}
+            disabled={isRunning || !robot}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: isRunning || !robot ? '#666' : '#0a0',
+              color: '#fff',
+              border: 'none',
+              cursor: isRunning || !robot ? 'not-allowed' : 'pointer',
+              borderRadius: '4px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}>
+            <span className="icon-play"></span>
+            Run
+          </button>
+          <button
+            onClick={handleStop}
+            disabled={!isRunning}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: !isRunning ? '#666' : '#c00',
+              color: '#fff',
+              border: 'none',
+              cursor: !isRunning ? 'not-allowed' : 'pointer',
+              borderRadius: '4px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}>
+            <span className="icon-stop"></span>
+            Stop
+          </button>
+        </div>
       </div>
       <div ref={editorRef} className="aceEditor" style={{
         width: '100%',
