@@ -4,7 +4,7 @@
     "build": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css",
     "build:css": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css"
   },
-  "devDependencies": {
+  "dependencies": {
     "sass": "^1.97.2"
   }
 }
