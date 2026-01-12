@@ -1,27 +1,29 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import MainSimulator from './pages/MainSimulator'
-import Arena from './pages/Arena'
-import ArenaFrame from './pages/ArenaFrame'
-import Builder from './pages/Builder'
-import Configurator from './pages/Configurator'
-import GenerateURL from './pages/GenerateURL'
 
 function App() {
-  console.log('App component rendering');
+  console.log('App component rendering - TEST');
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainSimulator />} />
-        <Route path="/arena" element={<Arena />} />
-        <Route path="/arena-frame" element={<ArenaFrame />} />
-        <Route path="/builder" element={<Builder />} />
-        <Route path="/configurator" element={<Configurator />} />
-        <Route path="/generate-url" element={<GenerateURL />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#1e1e1e',
+      color: '#fff',
+      fontSize: '24px',
+      fontFamily: 'Arial, sans-serif',
+      zIndex: 9999
+    }}>
+      <div>
+        <h1 style={{ margin: 0, marginBottom: '20px' }}>ATLAS Sim is Loading...</h1>
+        <p style={{ margin: 0, textAlign: 'center', fontSize: '16px' }}>If you see this, React is working!</p>
+      </div>
+    </div>
   )
 }
 
