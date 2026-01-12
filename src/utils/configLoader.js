@@ -48,11 +48,11 @@ export async function loadCustomBlocks() {
 }
 
 export async function loadToolbox() {
-  return await loadXML('/config/toolbox.xml');
+  return await loadText('/config/toolbox.xml');
 }
 
 export async function loadArduinoToolbox() {
-  return await loadXML('/config/toolbox_arduino.xml');
+  return await loadText('/config/toolbox_arduino.xml');
 }
 
 export async function loadLibrary() {

@@ -1,4 +1,5 @@
 import * as Blockly from 'blockly';
+import { defineArduinoBlocks, defineArduinoGenerators } from './arduinoBlocks';
 
 export class BlocklyManager {
   constructor() {
@@ -9,6 +10,9 @@ export class BlocklyManager {
 
   async init(container, toolbox) {
     this.toolbox = toolbox;
+
+    defineArduinoBlocks();
+    defineArduinoGenerators();
 
     this.workspace = Blockly.inject(container, {
       toolbox: toolbox,
@@ -36,6 +40,8 @@ export class BlocklyManager {
   }
 
   async loadGenerators() {
+    const python = await import('blockly/python');
+    Blockly.Python = python.pythonGenerator;
   }
 
   setGenerator(generator) {
@@ -60,7 +66,29 @@ export class BlocklyManager {
   }
 
   generateArduinoCode() {
-    return '';
+    if (!this.workspace || !Blockly.Arduino) {
+      return '// Arduino generator not loaded\n';
+    }
+
+    const blocks = this.workspace.getAllBlocks(false);
+    let code = '// Arduino Code Generated from Blocks\n\n';
+    code += 'void setup() {\n';
+    code += '  // Initialization code here\n';
+    code += '  Serial.begin(9600);\n';
+    code += '}\n\n';
+    code += 'void loop() {\n';
+
+    blocks.forEach(block => {
+      if (!block.getSurroundParent()) {
+        const blockCode = Blockly.Arduino.blockToCode(block);
+        if (blockCode) {
+          code += '  ' + blockCode;
+        }
+      }
+    });
+
+    code += '}\n';
+    return code;
   }
 
   loadBlocks(xml) {

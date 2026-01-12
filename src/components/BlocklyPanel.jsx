@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useBlockly } from '../hooks/useBlockly';
 import { useBlocklyStore } from '../store/blocklyStore';
 import { useUIStore } from '../store/uiStore';
-import { loadToolbox } from '../utils/configLoader';
+import { loadToolbox, loadArduinoToolbox } from '../utils/configLoader';
 
 export function BlocklyPanel() {
   const [toolbox, setToolbox] = useState(null);
@@ -12,13 +12,15 @@ export function BlocklyPanel() {
   const { generator, setGenerator } = useUIStore();
 
   useEffect(() => {
-    console.log('BlocklyPanel mounted');
+    console.log('BlocklyPanel mounted, generator:', generator);
     const loadToolboxData = async () => {
       try {
-        const toolboxXml = await loadToolbox();
+        const toolboxXml = generator === 'arduino'
+          ? await loadArduinoToolbox()
+          : await loadToolbox();
         if (toolboxXml) {
           setToolbox(toolboxXml);
-          console.log('Toolbox loaded successfully');
+          console.log('Toolbox loaded successfully for', generator);
         } else {
           console.warn('Toolbox is null');
         }
@@ -28,7 +30,7 @@ export function BlocklyPanel() {
       }
     };
     loadToolboxData();
-  }, []);
+  }, [generator]);
 
   useEffect(() => {
     const handleResize = () => resize();

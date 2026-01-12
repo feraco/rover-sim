@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { SimPanel } from '../components/SimPanel';
 import { BlocklyPanel } from '../components/BlocklyPanel';
 import { PythonPanel } from '../components/PythonPanel';
+import { ArduinoPanel } from '../components/ArduinoPanel';
 import { useUIStore } from '../store/uiStore';
 
 function MainSimulator() {
-  const { activePanel, setActivePanel } = useUIStore();
+  const { activePanel, setActivePanel, generator } = useUIStore();
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ function MainSimulator() {
             </div>
             <div className="rightPanel" style={{ flex: 1, position: 'relative' }}>
               <ErrorBoundary>
-                <PythonPanel />
+                {generator === 'arduino' ? <ArduinoPanel /> : <PythonPanel />}
               </ErrorBoundary>
             </div>
           </div>
@@ -99,7 +100,7 @@ function MainSimulator() {
             </div>
             <div className="rightPanel" style={{ flex: 1, position: 'relative' }}>
               <ErrorBoundary>
-                <PythonPanel />
+                {generator === 'arduino' ? <ArduinoPanel /> : <PythonPanel />}
               </ErrorBoundary>
             </div>
           </div>
