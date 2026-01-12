@@ -1,10 +1,28 @@
 {
+  "name": "atlas-sim",
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "npx http-server . -p 8080 -c-1",
-    "build": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "build:css": "sass scss/main.scss css/main.css && sass scss/widgets.scss css/widgets.css"
   },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "zustand": "^4.4.7",
+    "jszip": "^3.10.1",
+    "ace-builds": "^1.32.0",
+    "blockly": "^10.4.0",
+    "babylonjs": "^6.40.0",
+    "babylonjs-loaders": "^6.40.0",
+    "babylonjs-gui": "^6.40.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
     "sass": "^1.97.2"
   }
 }
